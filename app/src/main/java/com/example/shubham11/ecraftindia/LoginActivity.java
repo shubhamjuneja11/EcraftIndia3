@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,11 +17,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.shubham11.ecraftindia.app.AppConfig;
+import com.example.shubham11.ecraftindia.app.AppController;
 import com.example.shubham11.ecraftindia.app.SessionManager;
 import com.example.shubham11.ecraftindia.helper.SQLiteHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 EditText emailtext,passwordtext;
@@ -63,20 +68,25 @@ EditText emailtext,passwordtext;
         });
 
     }
-    public void checkcredentials(final String email, String password){
+    public void checkcredentials(final String email, final String password){
+        //showDialog();
+        String my_req="login_req";
+        Log.e("myh","a");
                 StringRequest request=new StringRequest(Request.Method.POST, AppConfig.URL_LOGIN, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
+                            Log.e("myh",response);
                             JSONObject res=new JSONObject(response);
                             boolean success=res.getBoolean("error");
-                            if(success){
+                            if(success){Log.e("myh","succ");
                                 db.addUser(email);
                                 Intent intent=new Intent(LoginActivity.this,MainActivity.class);
                                 startActivity(intent);
                                 finish();
                             }
                         } catch (JSONException e) {
+                            Log.e("myh","c");
                             e.printStackTrace();
                         }
 
@@ -84,9 +94,37 @@ EditText emailtext,passwordtext;
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Log.e("myh", error.getMessage());
+                      //  hideDialog();
 
                     }
-                });
+                }){
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Log.e("myh","t");
+                        // Posting parameters to login url
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("username", email);
+                        params.put("password", password);
+                        params.put("uniqueid","11");
+
+                        return params;
+                    }
+                };
+               // if(request!=null)
+        AppController.getInstance().addToRequestQueue(request,my_req);
+       // else Toast.makeText(this, "null", Toast.LENGTH_SHORT).show();
+
+
+    }
+    public void showDialog(){
+        if(!progressDialog.isShowing())
+                progressDialog.show();
+
+    }
+    public void hideDialog(){
+        if(progressDialog.isShowing())
+                progressDialog.hide();
     }
 
 }

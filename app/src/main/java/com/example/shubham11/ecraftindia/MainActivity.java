@@ -22,10 +22,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-ListView listView;
-    ArrayList<String> al;
-    //ArrayAdapter adapter;
-    ArrayAdapter adapter;
+
     LinearLayout search;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

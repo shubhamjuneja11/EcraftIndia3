@@ -6,4 +6,5 @@ package com.example.shubham11.ecraftindia.app;
 
 public class AppConfig {
     public static String URL_LOGIN ="http://10.0.2.2/ecraftindia/login.php";
+    public static String URL_GET_SEARCH_DATA="";
 }

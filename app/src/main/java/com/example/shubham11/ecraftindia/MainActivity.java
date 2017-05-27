@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -25,7 +26,7 @@ ListView listView;
     ArrayList<String> al;
     //ArrayAdapter adapter;
     ArrayAdapter adapter;
-
+    LinearLayout search;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +38,14 @@ ListView listView;
 
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        search=(LinearLayout)findViewById(R.id.searchtoolbar);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,SearchlistActivity.class);
+                startActivity(intent);
+            }
+        });
         /*listView=(ListView)findViewById(R.id.listview);
         if(listView==null) Log.e("abcd","dede");
         al=new ArrayList<>();

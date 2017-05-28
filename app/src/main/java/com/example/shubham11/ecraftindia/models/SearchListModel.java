@@ -6,7 +6,7 @@ package com.example.shubham11.ecraftindia.models;
 
 public class SearchListModel {
     private String imageurl,name,sku;
-    private int sp;
+    private int sp,cp;
 
     public SearchListModel(String imageurl, String name, String sku, int sp, int cp) {
         this.imageurl = imageurl;
@@ -57,5 +57,5 @@ public class SearchListModel {
         this.cp = cp;
     }
 
-    private int cp;
+
 }

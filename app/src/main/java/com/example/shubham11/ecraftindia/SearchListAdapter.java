@@ -36,12 +36,12 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.My
         SearchListModel model=al.get(position);
         holder.name.setText(model.getName());
         holder.sku.setText(model.getSku());
-        holder.cp.setText(model.getCp());
-        holder.sp.setText(model.getSp());
+        holder.cp.setText(String.valueOf(model.getCp()));
+        holder.sp.setText(String.valueOf(model.getSp()));
 
-        Glide.with(context).load(model.getImageurl())
+      /*  Glide.with(context).load(model.getImageurl())
                 .thumbnail(0.5f)
-                .into(holder.image);
+                .into(holder.image);*/
     }
 
     @Override

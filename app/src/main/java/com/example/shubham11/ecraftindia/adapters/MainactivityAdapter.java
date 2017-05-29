@@ -36,7 +36,7 @@ public class MainactivityAdapter extends RecyclerView.Adapter<MainactivityAdapte
         SearchListModel model=al.get(position);
         holder.name.setText(model.getName());
         holder.sku.setText(model.getSku());
-        holder.price.setText(model.getCp());
+//        holder.price.setText(model.getCp());
 
       /*  Glide.with(context).load(model.getImageurl())
                 .thumbnail(0.5f)
@@ -57,7 +57,7 @@ public class MainactivityAdapter extends RecyclerView.Adapter<MainactivityAdapte
             super(itemView);
             image=(ImageView)itemView.findViewById(R.id.productimage);
             name=(TextView)itemView.findViewById(R.id.name);
-            price=(TextView)itemView.findViewById(R.id.price);
+            //price=(TextView)itemView.findViewById(R.id.price);
             sku=(TextView)itemView.findViewById(R.id.sku);
         }
     }

@@ -133,7 +133,7 @@ RecyclerView recyclerView;
         hitdatabase(query);
     }
     public void hitdatabase(final String query){
-        Log.e("response","d");
+
         StringRequest request=new StringRequest(Request.Method.POST, AppConfig.URL_GET_SEARCH_DATA, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -141,12 +141,10 @@ RecyclerView recyclerView;
                     Log.e("response",response);
                     JSONObject object=new JSONObject(response);
                     JSONArray array1=object.getJSONArray("products");
-                    for(int i=0;i<array1.length();i++){Log.e("resp","1");
+                    for(int i=0;i<array1.length();i++){
                        JSONObject object1=array1.getJSONObject(i);
                         name=object1.getString("name");
                         sku=object1.getString("sku");
-                       /*cp=object1.getInt("cp");
-                        sp=object1.getInt("sp");*/
                        sp=0;
                         imageurl=object1.getString("images");
                         al.add(new SearchListModel(imageurl,name,sku,sp,sp));
@@ -170,7 +168,7 @@ RecyclerView recyclerView;
         }){
             @Override
             protected Map<String, String> getParams() {
-                Log.e("myh","t");
+
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("query",query);

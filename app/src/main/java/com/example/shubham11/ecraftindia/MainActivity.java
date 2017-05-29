@@ -1,5 +1,6 @@
 package com.example.shubham11.ecraftindia;
 
+import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -30,9 +31,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.shubham11.ecraftindia.adapters.MainactivityAdapter;
 import com.example.shubham11.ecraftindia.app.AppConfig;
+import com.example.shubham11.ecraftindia.app.AppController;
 import com.example.shubham11.ecraftindia.helper.SQLiteHandler;
 import com.example.shubham11.ecraftindia.models.ProductModel;
 import com.example.shubham11.ecraftindia.models.SearchListModel;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,12 +54,20 @@ public class MainActivity extends AppCompatActivity {
     int count=0;
     SQLiteHandler handler;
     String uniqueid;
+    private String imageurl,name,sku;
+    private int sp;
+    int visibleItemCount,totalItemCount,pastVisiblesItems;
+    LinearLayoutManager layoutmanager;
+    boolean loading=true;
+    ProgressDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        dialog=new ProgressDialog(this);
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         handler=new SQLiteHandler(this);
         username=handler.getUserDetails().get("username");
         al=new ArrayList<>();
@@ -62,11 +76,41 @@ public class MainActivity extends AppCompatActivity {
         uniqueid= Settings.Secure.getString(this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
         recyclerView.setAdapter(adapter);
-
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
+        layoutmanager=new LinearLayoutManager(this);
+        final RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new Decoration(this, LinearLayoutManager.HORIZONTAL));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                    layoutmanager=(LinearLayoutManager)mLayoutManager;
+                if(dy > 0) //check for scroll down
+                {
+                    visibleItemCount = layoutmanager.getChildCount();
+                    totalItemCount =layoutmanager.getItemCount();
+                    pastVisiblesItems = layoutmanager.findFirstVisibleItemPosition();
+
+                    if (loading)
+                    {
+                        if ( (visibleItemCount + pastVisiblesItems) >= totalItemCount)
+                        {
+                            dialog.show();
+                            loading = false;
+                            loaddata();
+                        }
+
+                    }
+                }
+            }
+        });
 
         loaddata();
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -83,6 +127,23 @@ public class MainActivity extends AppCompatActivity {
         StringRequest request=new StringRequest(StringRequest.Method.POST, AppConfig.URL_GET_ALL_DATA, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                try {
+                    JSONObject object=new JSONObject(response);
+                    JSONArray array=object.getJSONArray("products");
+                    for(int i=0;i<array.length();i++){
+                        JSONObject object1=array.getJSONObject(i);
+                        name=object1.getString("name");
+                        sku=object1.getString("sku");
+                        sp=0;
+                        imageurl=object1.getString("images");
+                        al.add(new SearchListModel(imageurl,name,sku,sp,sp));
+                    }
+                    adapter.notifyDataSetChanged();
+                    dialog.hide();
+                    loading=true;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
             }
         }, new Response.ErrorListener() {
@@ -99,11 +160,11 @@ public class MainActivity extends AppCompatActivity {
                 params.put("username",username);
                 params.put("uniqueid",uniqueid);
                 params.put("count",String.valueOf(count));
-                params.put("count",String.valueOf(count));
 
                 return params;
             }
 
         };
+        AppController.getInstance().addToRequestQueue(request,"get_data2");
     }
 }

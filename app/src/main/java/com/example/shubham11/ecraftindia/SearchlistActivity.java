@@ -174,6 +174,7 @@ RecyclerView recyclerView;
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("query",query);
+                Log.e("count",count+"");
                 params.put("count",String.valueOf(count));
 
                 return params;

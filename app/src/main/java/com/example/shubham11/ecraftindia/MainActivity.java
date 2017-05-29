@@ -27,6 +27,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.shubham11.ecraftindia.adapters.MainactivityAdapter;
 import com.example.shubham11.ecraftindia.app.AppConfig;
 import com.example.shubham11.ecraftindia.models.ProductModel;
+import com.example.shubham11.ecraftindia.models.SearchListModel;
 
 import java.util.ArrayList;
 
@@ -35,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout search;
     RecyclerView recyclerView;
     MainactivityAdapter adapter;
-    ArrayList<ProductModel> al;
+    ArrayList<SearchListModel> al;
+    int count=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

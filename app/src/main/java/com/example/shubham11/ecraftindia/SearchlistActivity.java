@@ -1,5 +1,6 @@
 package com.example.shubham11.ecraftindia;
 
+import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -44,7 +45,7 @@ RecyclerView recyclerView;
     int count=0,i;
     private String imageurl,name,sku;
     private int sp,cp;
-    ProgressBar progressBar;
+    ProgressDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +54,8 @@ RecyclerView recyclerView;
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(true);
-        progressBar=new ProgressBar(this);
-
+        dialog=new ProgressDialog(this);
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
         al=new ArrayList<>();
         adapter=new SearchListAdapter(this,al);
@@ -118,7 +119,7 @@ RecyclerView recyclerView;
                     {
                         if ( (visibleItemCount + pastVisiblesItems) >= totalItemCount)
                         {
-                            progressBar.setVisibility(View.VISIBLE);
+                            dialog.show();
                             loading = false;
                             loaddata();
                         }
@@ -151,7 +152,8 @@ RecyclerView recyclerView;
                         al.add(new SearchListModel(imageurl,name,sku,sp,sp));
 
                     } adapter.notifyDataSetChanged();
-                    progressBar.setVisibility(View.INVISIBLE);
+
+                    dialog.hide();
                     loading=true;
 
                 } catch (JSONException e) {

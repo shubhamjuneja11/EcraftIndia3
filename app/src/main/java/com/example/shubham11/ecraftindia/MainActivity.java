@@ -44,7 +44,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RecyclerViewClickListener {
 
     LinearLayout search;
     RecyclerView recyclerView;
@@ -66,13 +66,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         dialog=new ProgressDialog(this);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         handler=new SQLiteHandler(this);
         username=handler.getUserDetails().get("username");
         al=new ArrayList<>();
         recyclerView=(RecyclerView)findViewById(R.id.recycler);
-        adapter=new MainactivityAdapter(this,al);
+        adapter=new MainactivityAdapter(this,al,this);
         uniqueid= Settings.Secure.getString(this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
         recyclerView.setAdapter(adapter);
@@ -81,6 +82,10 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new Decoration(this, LinearLayoutManager.HORIZONTAL));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+/**************************Recycler Scroll Listener**************************************************/
+
+
+
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -112,8 +117,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+/****************************************************************************************************/
+
+
+
+/**********************Recycler touch listenr********************************************************/
+
+
+
+
+
+
+
+
+
+/**************************************************************************************************/
+
         loaddata();
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         search = (LinearLayout) findViewById(R.id.searchtoolbar);
         search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,6 +144,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    /*********************************Function to get data from server************************************/
     public void loaddata(){
         StringRequest request=new StringRequest(StringRequest.Method.POST, AppConfig.URL_GET_ALL_DATA, new Response.Listener<String>() {
             @Override
@@ -167,4 +190,14 @@ public class MainActivity extends AppCompatActivity {
         };
         AppController.getInstance().addToRequestQueue(request,"get_data2");
     }
+
+    @Override
+    public void recycleritemClicked(View v, int position) {
+        String sku=al.get(position).getSku();
+        Toast.makeText(this, sku, Toast.LENGTH_SHORT).show();
+    }
+    /******************************************************************************************/
+
+
+
 }

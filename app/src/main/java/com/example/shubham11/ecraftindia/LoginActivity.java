@@ -55,6 +55,7 @@ EditText emailtext,passwordtext;
         if(sessionManager.isLoggedin()){
             Intent intent=new Intent(this,MainActivity.class);
             startActivity(intent);
+            finish();
         }
         imei = Settings.Secure.getString(this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);

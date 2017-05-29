@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.shubham11.ecraftindia.R;
+import com.example.shubham11.ecraftindia.RecyclerViewClickListener;
 import com.example.shubham11.ecraftindia.models.ProductModel;
 import com.example.shubham11.ecraftindia.models.SearchListModel;
 
@@ -21,9 +22,12 @@ import java.util.ArrayList;
 public class MainactivityAdapter extends RecyclerView.Adapter<MainactivityAdapter.MyviewHolder> {
     ArrayList<SearchListModel> al;
     Context context;
-    public MainactivityAdapter(Context context,ArrayList<SearchListModel>  al){
+    RecyclerViewClickListener itemlistener;
+    public MainactivityAdapter(Context context, ArrayList<SearchListModel> al, RecyclerViewClickListener itemlistener){
         this.context=context;
         this.al=al;
+        this.itemlistener=itemlistener;
+
     }
     @Override
     public MyviewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -50,7 +54,7 @@ public class MainactivityAdapter extends RecyclerView.Adapter<MainactivityAdapte
         return al.size();
     }
 
-    public class MyviewHolder extends RecyclerView.ViewHolder {
+    public class MyviewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView image;
         TextView name,price,sku;
         public MyviewHolder(View itemView) {
@@ -59,6 +63,12 @@ public class MainactivityAdapter extends RecyclerView.Adapter<MainactivityAdapte
             name=(TextView)itemView.findViewById(R.id.name);
             //price=(TextView)itemView.findViewById(R.id.price);
             sku=(TextView)itemView.findViewById(R.id.sku);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            itemlistener.recycleritemClicked(v,this.getLayoutPosition());
         }
     }
 }

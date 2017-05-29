@@ -3,7 +3,7 @@
     package="com.example.shubham11.ecraftindia">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <application
         android:name=".app.AppController"
         android:allowBackup="true"
@@ -25,17 +25,19 @@
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
             -->
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
             <!--<meta-data
                 android:name="android.app.default_searchable"
                 android:value=".SearchResultActivity" />-->
         </activity>
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".SearchResultActivity">
             <!--<meta-data
                 android:name="android.support.PARENT_ACTIVITY"

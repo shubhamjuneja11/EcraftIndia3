@@ -5,9 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.shubham11.ecraftindia.R;
 import com.example.shubham11.ecraftindia.models.ProductModel;
+import com.example.shubham11.ecraftindia.models.SearchListModel;
 
 import java.util.ArrayList;
 
@@ -16,9 +19,9 @@ import java.util.ArrayList;
  */
 
 public class MainactivityAdapter extends RecyclerView.Adapter<MainactivityAdapter.MyviewHolder> {
-    ArrayList<ProductModel> al;
+    ArrayList<SearchListModel> al;
     Context context;
-    public MainactivityAdapter(Context context,ArrayList<ProductModel>  al){
+    public MainactivityAdapter(Context context,ArrayList<SearchListModel>  al){
         this.context=context;
         this.al=al;
     }
@@ -30,6 +33,15 @@ public class MainactivityAdapter extends RecyclerView.Adapter<MainactivityAdapte
 
     @Override
     public void onBindViewHolder(MyviewHolder holder, int position) {
+        SearchListModel model=al.get(position);
+        holder.name.setText(model.getName());
+        holder.sku.setText(model.getSku());
+        holder.price.setText(model.getCp());
+
+      /*  Glide.with(context).load(model.getImageurl())
+                .thumbnail(0.5f)
+                .into(holder.image);*/
+
 
     }
 
@@ -39,8 +51,14 @@ public class MainactivityAdapter extends RecyclerView.Adapter<MainactivityAdapte
     }
 
     public class MyviewHolder extends RecyclerView.ViewHolder {
+        ImageView image;
+        TextView name,price,sku;
         public MyviewHolder(View itemView) {
             super(itemView);
+            image=(ImageView)itemView.findViewById(R.id.productimage);
+            name=(TextView)itemView.findViewById(R.id.name);
+            price=(TextView)itemView.findViewById(R.id.price);
+            sku=(TextView)itemView.findViewById(R.id.sku);
         }
     }
 }

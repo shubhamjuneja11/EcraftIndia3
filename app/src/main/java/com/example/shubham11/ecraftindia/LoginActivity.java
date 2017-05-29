@@ -1,7 +1,10 @@
 package com.example.shubham11.ecraftindia;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.wifi.WifiManager;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,7 +37,7 @@ EditText emailtext,passwordtext;
     SessionManager sessionManager;
     ProgressDialog progressDialog;
     SQLiteHandler db;
-
+    String imei;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +56,9 @@ EditText emailtext,passwordtext;
             Intent intent=new Intent(this,MainActivity.class);
             startActivity(intent);
         }
+        imei = Settings.Secure.getString(this.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+        Log.e("myhhhhhhhhhh",imei);
 
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,15 +82,16 @@ EditText emailtext,passwordtext;
                     @Override
                     public void onResponse(String response) {
                         try {
-                            Log.e("myh",response);
+                            Log.e("myhr",response);
                             JSONObject res=new JSONObject(response);
-                            boolean success=res.getBoolean("error");
+
+                           /* boolean success=res.getBoolean("error");
                             if(success){Log.e("myh","succ");
                                 db.addUser(email);
                                 Intent intent=new Intent(LoginActivity.this,MainActivity.class);
                                 startActivity(intent);
                                 finish();
-                            }
+                            }*/
                         } catch (JSONException e) {
                             Log.e("myh","c");
                             e.printStackTrace();
@@ -106,7 +113,7 @@ EditText emailtext,passwordtext;
                         Map<String, String> params = new HashMap<String, String>();
                         params.put("username", email);
                         params.put("password", password);
-                        params.put("uniqueid","11");
+                        params.put("uniqueid",imei);
 
                         return params;
                     }

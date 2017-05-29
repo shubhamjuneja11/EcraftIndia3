@@ -7,6 +7,9 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
+import java.net.CookieHandler;
+import java.net.CookieManager;
+
 /**
  * Created by shubham11 on 24/5/17.
  */
@@ -21,6 +24,7 @@ public class AppController extends Application {
     public void onCreate() {
         super.onCreate();
         instance=this;
+        CookieHandler.setDefault(new CookieManager());
     }
 
     public static synchronized AppController getInstance(){

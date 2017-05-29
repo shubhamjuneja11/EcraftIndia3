@@ -85,13 +85,15 @@ EditText emailtext,passwordtext;
                             Log.e("myhr",response);
                             JSONObject res=new JSONObject(response);
 
-                           /* boolean success=res.getBoolean("error");
-                            if(success){Log.e("myh","succ");
+                           int success=res.getInt("success");
+                            if(success==1){
                                 db.addUser(email);
+                                sessionManager.setLogin(true);
                                 Intent intent=new Intent(LoginActivity.this,MainActivity.class);
                                 startActivity(intent);
                                 finish();
-                            }*/
+                            }
+                            else Toast.makeText(LoginActivity.this, "Your device is not registered.", Toast.LENGTH_LONG).show();
                         } catch (JSONException e) {
                             Log.e("myh","c");
                             e.printStackTrace();

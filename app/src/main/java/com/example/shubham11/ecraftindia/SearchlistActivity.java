@@ -42,9 +42,9 @@ RecyclerView recyclerView;
     LinearLayoutManager layoutmanager;
     int visibleItemCount,totalItemCount,pastVisiblesItems;
     boolean loading=true;
-    int count=0,i;
+    int count=0;
     private String imageurl,name,sku;
-    private int sp,cp;
+    private int sp;
     ProgressDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,7 +147,7 @@ RecyclerView recyclerView;
                         sku=object1.getString("sku");
                        /*cp=object1.getInt("cp");
                         sp=object1.getInt("sp");*/
-                       cp=sp=0;
+                       sp=0;
                         imageurl=object1.getString("images");
                         al.add(new SearchListModel(imageurl,name,sku,sp,sp));
 

@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.shubham11.ecraftindia.R;
+import com.example.shubham11.ecraftindia.RecyclerViewClickListener;
 import com.example.shubham11.ecraftindia.models.SearchListModel;
 
 import java.util.ArrayList;
@@ -20,9 +21,11 @@ import java.util.ArrayList;
 public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.MyViewHolder> {
     ArrayList<SearchListModel> al;
     Context context;
-    public SearchListAdapter(Context context,ArrayList<SearchListModel> al){
+    RecyclerViewClickListener listener;
+    public SearchListAdapter(Context context,ArrayList<SearchListModel> al,RecyclerViewClickListener listener){
         this.al=al;
         this.context=context;
+        this.listener=listener;
     }
     @Override
     public SearchListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -48,7 +51,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.My
         return al.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView image;
         TextView cp,sp,name,sku;
         public MyViewHolder(View itemView) {
@@ -58,6 +61,12 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.My
             sp=(TextView)itemView.findViewById(R.id.sp);
             name=(TextView)itemView.findViewById(R.id.name);
             sku=(TextView)itemView.findViewById(R.id.sku);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            listener.recycleritemClicked(v,this.getLayoutPosition());
         }
     }
 }

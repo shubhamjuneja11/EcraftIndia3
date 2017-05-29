@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -31,7 +32,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SearchlistActivity extends AppCompatActivity {
+public class SearchlistActivity extends AppCompatActivity implements RecyclerViewClickListener{
 RecyclerView recyclerView;
 
     EditText searchedit;
@@ -58,7 +59,7 @@ RecyclerView recyclerView;
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
         al=new ArrayList<>();
-        adapter=new SearchListAdapter(this,al);
+        adapter=new SearchListAdapter(this,al,this);
        recyclerView=(RecyclerView)findViewById(R.id.recycler);
         recyclerView.setAdapter(adapter);
         layoutmanager=new LinearLayoutManager(this);
@@ -182,4 +183,9 @@ RecyclerView recyclerView;
     }
 
 
+    @Override
+    public void recycleritemClicked(View v, int position) {
+        String sku=al.get(position).getSku();
+        Toast.makeText(this,sku, Toast.LENGTH_SHORT).show();
+    }
 }

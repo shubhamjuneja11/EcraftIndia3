@@ -21,7 +21,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     // All Static variables
     // Database Version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
 
     // Database Name
     private static final String DATABASE_NAME = "android_api";
@@ -45,7 +45,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_USER + "("
-                + KEY_ID + " INTEGER PRIMARY KEY,"
+                + KEY_ID + " STRING PRIMARY KEY,"
                 + KEY_USERNAME + " TEXT UNIQUE"  + ")";
         db.execSQL(CREATE_LOGIN_TABLE);
 
@@ -98,6 +98,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         if (cursor.getCount() > 0) {
             user.put("username", cursor.getString(1));
             user.put("id",cursor.getString(0));
+            Log.e("resp",cursor.getString(0));
            /* user.put("email", cursor.getString(2));
             user.put("uid", cursor.getString(3));
             user.put("created_at", cursor.getString(4));*/

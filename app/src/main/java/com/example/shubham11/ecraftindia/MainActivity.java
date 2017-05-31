@@ -74,8 +74,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
         al=new ArrayList<>();
         recyclerView=(RecyclerView)findViewById(R.id.recycler);
         adapter=new MainactivityAdapter(this,al,this);
-        uniqueid= Settings.Secure.getString(this.getContentResolver(),
-                Settings.Secure.ANDROID_ID);
+        uniqueid=handler.getUserDetails().get("id");
         recyclerView.setAdapter(adapter);
         layoutmanager=new LinearLayoutManager(this);
         final RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
@@ -194,7 +193,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
     @Override
     public void recycleritemClicked(View v, int position) {
         String sku=al.get(position).getSku();
-        Toast.makeText(this, sku, Toast.LENGTH_SHORT).show();
+        Intent intent=new Intent(this,ProductDetailsActivity.class);
+        intent.putExtra("sku",sku);
+        startActivity(intent);
     }
     /******************************************************************************************/
 

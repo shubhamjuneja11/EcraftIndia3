@@ -13,11 +13,12 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.shubham11.ecraftindia.app.AppConfig;
 import com.example.shubham11.ecraftindia.helper.SQLiteHandler;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class ProductDetailsActivity extends AppCompatActivity {
 TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_color,t_size,t_inventory,t_inventorytype;
-    String username;
+    String username,imei;
     SQLiteHandler handler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,7 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
         initializeTextFields();
         handler=new SQLiteHandler(this);
         username=handler.getUserDetails().get("username");
+        imei=handler.getUserDetails().get("id");
 
 
     }
@@ -62,8 +64,10 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
         ){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params;
-                params.put("username",)
+                Map<String,String> params=new HashMap<>();
+                params.put("username",username);
+                params.put("uniqueid",imei);
+                return params;
             }
         };
     }

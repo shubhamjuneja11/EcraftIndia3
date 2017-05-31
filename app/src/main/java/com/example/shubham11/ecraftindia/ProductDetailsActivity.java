@@ -1,17 +1,34 @@
 package com.example.shubham11.ecraftindia;
 
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.example.shubham11.ecraftindia.app.AppConfig;
+import com.example.shubham11.ecraftindia.helper.SQLiteHandler;
+
+import java.util.Map;
+
 public class ProductDetailsActivity extends AppCompatActivity {
 TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_color,t_size,t_inventory,t_inventorytype;
+    String username;
+    SQLiteHandler handler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
-
+        load_data();
         initializeTextFields();
+        handler=new SQLiteHandler(this);
+        username=handler.getUserDetails().get("username");
+
+
     }
 
     public void initializeTextFields(){
@@ -28,4 +45,27 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
         t_inventory=(TextView)findViewById(R.id.inventory);
         t_inventorytype=(TextView)findViewById(R.id.inventorytype);
     }
+
+    public void load_data(){
+        StringRequest request=new StringRequest(StringRequest.Method.POST, AppConfig.URL_GET_PRODUCT_DETAIL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }
+
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params;
+                params.put("username",)
+            }
+        };
+    }
+
 }

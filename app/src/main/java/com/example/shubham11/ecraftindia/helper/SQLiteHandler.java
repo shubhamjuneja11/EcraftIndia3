@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.Settings;
 import android.util.Log;
 
 import java.util.HashMap;
@@ -14,6 +15,7 @@ import java.util.HashMap;
  */
 
 public class SQLiteHandler extends SQLiteOpenHelper {
+    Context context;
 
     private static final String TAG = SQLiteHandler.class.getSimpleName();
 
@@ -36,6 +38,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     public SQLiteHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context=context;
     }
 
     // Creating Tables
@@ -67,7 +70,10 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
        // values.put(KEY_NAME, name); // Name
+        String imei= Settings.Secure.getString(context.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
         values.put(KEY_USERNAME, username); // Email
+        values.put(KEY_ID,imei);
         /*values.put(KEY_UID, uid); // Email
         values.put(KEY_CREATED_AT, created_at); */// Created At
 
@@ -91,6 +97,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         cursor.moveToFirst();
         if (cursor.getCount() > 0) {
             user.put("username", cursor.getString(1));
+            user.put("id",cursor.getString(0));
            /* user.put("email", cursor.getString(2));
             user.put("uid", cursor.getString(3));
             user.put("created_at", cursor.getString(4));*/

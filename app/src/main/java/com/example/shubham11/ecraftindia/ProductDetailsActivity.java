@@ -31,12 +31,13 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
         sku=getIntent().getStringExtra("sku");
-        load_data();
-        initializeTextFields();
         handler=new SQLiteHandler(this);
         username=handler.getUserDetails().get("username");
         imei=handler.getUserDetails().get("id");
+        load_data();
+        initializeTextFields();
 
+        //Log.e("indbimei",imei);
 
     }
 

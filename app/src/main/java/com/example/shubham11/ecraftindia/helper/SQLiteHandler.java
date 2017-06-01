@@ -72,8 +72,10 @@ public class SQLiteHandler extends SQLiteOpenHelper {
        // values.put(KEY_NAME, name); // Name
         String imei= Settings.Secure.getString(context.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
+        Log.e("indb",imei);
         values.put(KEY_USERNAME, username); // Email
         values.put(KEY_ID,imei);
+
         /*values.put(KEY_UID, uid); // Email
         values.put(KEY_CREATED_AT, created_at); */// Created At
 
@@ -81,7 +83,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         long id = db.insert(TABLE_USER, null, values);
         db.close(); // Closing database connection
 
-        Log.d(TAG, "New user inserted into sqlite: " + id);
+        Log.d("indb", "New user inserted into sqlite: " + id);
     }
 
     /**
@@ -98,7 +100,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         if (cursor.getCount() > 0) {
             user.put("username", cursor.getString(1));
             user.put("id",cursor.getString(0));
-            Log.e("resp",cursor.getString(0));
+            Log.e("indb",cursor.getString(0));
            /* user.put("email", cursor.getString(2));
             user.put("uid", cursor.getString(3));
             user.put("created_at", cursor.getString(4));*/

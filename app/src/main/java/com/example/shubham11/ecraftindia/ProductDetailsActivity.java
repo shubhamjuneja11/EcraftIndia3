@@ -23,7 +23,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ProductDetailsActivity extends AppCompatActivity {
-TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_color,t_size,t_inventory,t_inventorytype;
+TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_color,t_size,t_inventory,t_inventorytype,t_name;
+    String msku,primarycategory,category,material,color,size,inventory,inventorytype,name;
+    int cp,mrp,sp;
     String username,imei,sku;
     SQLiteHandler handler;
     @Override
@@ -37,13 +39,12 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
         load_data();
         initializeTextFields();
 
-        //Log.e("indbimei",imei);
-
     }
 
     public void initializeTextFields(){
         t_sku=(TextView)findViewById(R.id.sku);
         t_msku=(TextView)findViewById(R.id.msku);
+        t_name=(TextView)findViewById(R.id.name);
         t_primarycategory=(TextView)findViewById(R.id.primarycategory);
         t_category=(TextView)findViewById(R.id.category);
         t_cp=(TextView)findViewById(R.id.cp);
@@ -62,10 +63,38 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
             public void onResponse(String response) {
                 try {
                     JSONObject object=new JSONObject(response);
-                    //JSONObject data=object.getJSONArray("detail").getJSONObject(0);
-                    Log.e("myres",response);
+                    JSONArray array=object.getJSONArray("detail");
+                    msku=array.getString(1);
+                    name=array.getString(3);
+                    primarycategory=array.getString(4);
+                    category=array.getString(5);
+                    try {
+                        cp = array.getInt(6);
+                    }
+                    catch (Exception e){
+                     cp=0;
+                    }
+                    try {
+                        mrp = array.getInt(7);
+                    }
+                    catch (Exception e){
+                        mrp=0;
+                    }
+                    try {
+                        sp = array.getInt(8);
+                    }
+                    catch (Exception e){
+                        sp=0;
+                    }
+                    material=array.getString(9);
+                    color=array.getString(10);
+                    size=array.getString(11);
+                    inventory=array.getString(12);
+                    inventorytype=array.getString(13);
+                    Log.e("resp",response);
 
                 } catch (JSONException e) {
+                    Log.e("respo",e.getMessage());
                     e.printStackTrace();
                 }
 

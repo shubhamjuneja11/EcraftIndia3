@@ -97,7 +97,7 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
                     Log.e("respo",e.getMessage());
                     e.printStackTrace();
                 }
-
+                loadViews();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -120,6 +120,21 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
             }
         };
         AppController.getInstance().addToRequestQueue(request,"details");
+    }
+    public void loadViews(){
+        t_sku.setText(sku);
+        t_msku.setText(msku);//t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_color,t_size,t_inventory,t_inventorytype,t_name;
+        t_primarycategory.setText(primarycategory);
+        t_category.setText(category);
+        t_cp.setText(String.valueOf(cp));
+        t_mrp.setText(String.valueOf(mrp));
+        t_sp.setText(String.valueOf(sp));
+        t_material.setText(material);
+        t_color.setText(color);
+        t_size.setText(size);
+        t_inventorytype.setText(inventorytype);
+        t_inventory.setText(inventory);
+        t_name.setText(name);
     }
 
 }

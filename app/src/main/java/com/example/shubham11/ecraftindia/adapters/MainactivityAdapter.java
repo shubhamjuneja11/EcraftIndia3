@@ -62,7 +62,7 @@ public class MainactivityAdapter extends RecyclerView.Adapter<MainactivityAdapte
             super(itemView);
             image=(ImageView)itemView.findViewById(R.id.productimage);
             name=(TextView)itemView.findViewById(R.id.name);
-            //price=(TextView)itemView.findViewById(R.id.price);
+            price=(TextView)itemView.findViewById(R.id.price);
             sku=(TextView)itemView.findViewById(R.id.sku);
             itemView.setOnClickListener(this);
         }

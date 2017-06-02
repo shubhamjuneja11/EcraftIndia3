@@ -55,6 +55,13 @@ RecyclerView recyclerView;
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed(); // Implemented by activity
+            }
+        });
         dialog=new ProgressDialog(this);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
@@ -188,4 +195,5 @@ RecyclerView recyclerView;
         String sku=al.get(position).getSku();
         Toast.makeText(this,sku, Toast.LENGTH_SHORT).show();
     }
+
 }

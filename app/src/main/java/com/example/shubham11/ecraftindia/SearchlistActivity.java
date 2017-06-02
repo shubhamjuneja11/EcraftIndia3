@@ -1,6 +1,7 @@
 package com.example.shubham11.ecraftindia;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -46,7 +48,7 @@ RecyclerView recyclerView;
     int count=0;
     private String imageurl,name,sku;
     private int sp;
-    ProgressDialog dialog;
+    ProgressBar dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,8 +64,8 @@ RecyclerView recyclerView;
                 onBackPressed(); // Implemented by activity
             }
         });
-        dialog=new ProgressDialog(this);
-        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog=(ProgressBar)findViewById(R.id.progressbar);
+
 
         al=new ArrayList<>();
         adapter=new SearchListAdapter(this,al,this);
@@ -72,8 +74,10 @@ RecyclerView recyclerView;
         layoutmanager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutmanager);
 
+        View.OnFocusChangeListener ofcListener = new MyFocusChangeListener();
 
         searchedit=(EditText)findViewById(R.id.searchtext);
+        searchedit.setOnFocusChangeListener(ofcListener);
         clearall=(ImageView)findViewById(R.id.clearall);
 
 
@@ -127,7 +131,7 @@ RecyclerView recyclerView;
                     {
                         if ( (visibleItemCount + pastVisiblesItems) >= totalItemCount)
                         {
-                            dialog.show();
+                            dialog.setVisibility(View.VISIBLE);
                             loading = false;
                             loaddata();
                         }
@@ -159,7 +163,7 @@ RecyclerView recyclerView;
 
                     } adapter.notifyDataSetChanged();
 
-                    dialog.hide();
+                    dialog.setVisibility(View.INVISIBLE);
                     loading=true;
 
                 } catch (JSONException e) {
@@ -179,8 +183,7 @@ RecyclerView recyclerView;
 
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("query",query);
-                Log.e("count",count+"");
+                params.put("query",query.trim());
                 params.put("count",String.valueOf(count));
 
                 return params;
@@ -195,5 +198,16 @@ RecyclerView recyclerView;
         String sku=al.get(position).getSku();
         Toast.makeText(this,sku, Toast.LENGTH_SHORT).show();
     }
+    private class MyFocusChangeListener implements View.OnFocusChangeListener {
 
+        public void onFocusChange(View v, boolean hasFocus){
+
+            if(v.getId() == R.id.searchtext && !hasFocus) {
+
+                InputMethodManager imm =  (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
+            }
+        }
+    }
 }

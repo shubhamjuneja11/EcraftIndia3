@@ -23,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
     int visibleItemCount,totalItemCount,pastVisiblesItems;
     LinearLayoutManager layoutmanager;
     boolean loading=true;
-    ProgressDialog dialog;
+    ProgressBar dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,8 +68,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        dialog=new ProgressDialog(this);
-        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog=new ProgressBar(this);
         handler=new SQLiteHandler(this);
         username=handler.getUserDetails().get("username");
         al=new ArrayList<>();
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
                     {
                         if ( (visibleItemCount + pastVisiblesItems) >= totalItemCount)
                         {
-                            dialog.show();
+                            dialog.setVisibility(View.VISIBLE);
                             loading = false;
                             loaddata();
                         }
@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
                         al.add(new SearchListModel(imageurl,name,sku,sp,sp));
                     }
                     adapter.notifyDataSetChanged();
-                    dialog.hide();
+                    dialog.setVisibility(View.INVISIBLE);
                     loading=true;
                 } catch (JSONException e) {
                     e.printStackTrace();

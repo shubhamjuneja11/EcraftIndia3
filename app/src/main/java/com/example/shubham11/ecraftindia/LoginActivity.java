@@ -94,7 +94,8 @@ EditText emailtext,passwordtext;
                                 startActivity(intent);
                                 finish();
                             }
-                            else Toast.makeText(LoginActivity.this, "Your device is not registered.", Toast.LENGTH_LONG).show();
+                            else if(success==-1)Toast.makeText(LoginActivity.this, "Your device is not registered.", Toast.LENGTH_LONG).show();
+                            else Toast.makeText(LoginActivity.this, "Username/Password is not correct", Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {
                             Log.e("myh","c");
                             e.printStackTrace();

@@ -68,8 +68,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        dialog=new ProgressBar(this);
+        dialog=(ProgressBar)findViewById(R.id.progressbar);
+        dialog.setVisibility(View.INVISIBLE);
         handler=new SQLiteHandler(this);
+
         username=handler.getUserDetails().get("username");
         al=new ArrayList<>();
         recyclerView=(RecyclerView)findViewById(R.id.recycler);
@@ -106,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
                     {
                         if ( (visibleItemCount + pastVisiblesItems) >= totalItemCount)
                         {
-                            dialog.setVisibility(View.VISIBLE);
+
                             loading = false;
                             loaddata();
                         }
@@ -146,6 +148,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
 
     /*********************************Function to get data from server************************************/
     public void loaddata(){
+        dialog.setVisibility(View.VISIBLE);
         StringRequest request=new StringRequest(StringRequest.Method.POST, AppConfig.URL_GET_ALL_DATA, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -161,17 +164,20 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
                         al.add(new SearchListModel(imageurl,name,sku,sp,sp));
                     }
                     adapter.notifyDataSetChanged();
-                    dialog.setVisibility(View.INVISIBLE);
+
                     loading=true;
                 } catch (JSONException e) {
                     e.printStackTrace();
+                }
+                finally {
+                    dialog.setVisibility(View.INVISIBLE);
                 }
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                dialog.setVisibility(View.INVISIBLE);
             }
         }){
             @Override

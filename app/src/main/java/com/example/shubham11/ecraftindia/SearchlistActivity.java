@@ -65,7 +65,7 @@ RecyclerView recyclerView;
             }
         });
         dialog=(ProgressBar)findViewById(R.id.progressbar);
-
+        dialog.setVisibility(View.INVISIBLE);
 
         al=new ArrayList<>();
         adapter=new SearchListAdapter(this,al,this);
@@ -145,7 +145,7 @@ RecyclerView recyclerView;
         hitdatabase(query);
     }
     public void hitdatabase(final String query){
-
+        dialog.setVisibility(View.VISIBLE);
         StringRequest request=new StringRequest(Request.Method.POST, AppConfig.URL_GET_SEARCH_DATA, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -170,12 +170,15 @@ RecyclerView recyclerView;
                     Log.e("response",e.getMessage());
                     e.printStackTrace();
                 }
+                finally {
+                    dialog.setVisibility(View.INVISIBLE);
+                }
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                dialog.setVisibility(View.INVISIBLE);
             }
         }){
             @Override

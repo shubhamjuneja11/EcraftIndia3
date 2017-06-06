@@ -39,8 +39,10 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.My
         SearchListModel model=al.get(position);
         holder.name.setText(model.getName());
         holder.sku.setText(model.getSku());
-        holder.cp.setText(String.valueOf(model.getCp()));
-        holder.sp.setText(String.valueOf(model.getSp()));
+        String cp="C.P.      \u20B9 "+String.valueOf(model.getCp());
+        holder.cp.setText(cp);
+        String sp="S.P.      \u20B9 "+String.valueOf(model.getSp());
+        holder.sp.setText(sp);
 
        Glide.with(context).load(R.drawable.tiger)
                 .thumbnail(0.5f)

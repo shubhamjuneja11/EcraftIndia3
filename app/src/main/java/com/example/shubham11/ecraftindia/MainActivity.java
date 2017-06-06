@@ -203,8 +203,15 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
         intent.putExtra("sku",sku);
         startActivity(intent);
     }
-    /******************************************************************************************/
 
+    public void openProfile(View view){
+        Intent intent=new Intent(this,ProfileActivity.class);
+        startActivity(intent);
+    }
+    public void openCart(View view){
+        Intent intent=new Intent(this,CartActivity.class);
+        startActivity(intent);
+    }
 
 
 }

@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
         layoutmanager=new LinearLayoutManager(this);
         final RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.addItemDecoration(new Decoration(this, LinearLayoutManager.HORIZONTAL));
+        //recyclerView.addItemDecoration(new Decoration(this, LinearLayoutManager.HORIZONTAL));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 /**************************Recycler Scroll Listener**************************************************/
 

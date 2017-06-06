@@ -42,6 +42,7 @@ public class MainactivityAdapter extends RecyclerView.Adapter<MainactivityAdapte
         holder.name.setText(model.getName());
         holder.sku.setText(model.getSku());
 //        holder.price.setText(model.getCp());
+        //holder.price.setText("50 \\u20B9");
 
         Glide.with(context).load(R.drawable.tiger)
                 .thumbnail(0.5f)

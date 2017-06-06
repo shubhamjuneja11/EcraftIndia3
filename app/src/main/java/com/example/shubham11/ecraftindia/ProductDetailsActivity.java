@@ -13,6 +13,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.shubham11.ecraftindia.app.AppConfig;
 import com.example.shubham11.ecraftindia.app.AppController;
+import com.example.shubham11.ecraftindia.carousel.ViewPagerCarouselView;
 import com.example.shubham11.ecraftindia.helper.SQLiteHandler;
 
 import org.json.JSONArray;
@@ -28,6 +29,7 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
     int cp,mrp,sp;
     String username,imei,sku;
     SQLiteHandler handler;
+    ViewPagerCarouselView viewPagerCarouselView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +41,16 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
         load_data();
         initializeTextFields();
 
+        long carouselSlideInterval = 3000; // 3 SECONDS
+        int [] imageResourceIds = {R.drawable.tiger,R.drawable.tiger,R.drawable.tiger,R.drawable.tiger,R.drawable.tiger};
+
+        viewPagerCarouselView = (ViewPagerCarouselView) findViewById(R.id.carousel_view);
+        viewPagerCarouselView.setData(getSupportFragmentManager(), imageResourceIds, carouselSlideInterval);
     }
+
+
+
+
 
     public void initializeTextFields(){
         t_sku=(TextView)findViewById(R.id.sku);

@@ -2,6 +2,7 @@ package com.example.shubham11.ecraftindia;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -199,14 +200,15 @@ RecyclerView recyclerView;
     @Override
     public void recycleritemClicked(View v, int position) {
         String sku=al.get(position).getSku();
-        Toast.makeText(this,sku, Toast.LENGTH_SHORT).show();
+        Intent intent=new Intent(this,ProductDetailsActivity.class);
+        intent.putExtra("sku",sku);
+        startActivity(intent);
     }
     private class MyFocusChangeListener implements View.OnFocusChangeListener {
 
         public void onFocusChange(View v, boolean hasFocus){
 
             if(v.getId() == R.id.searchtext && !hasFocus) {
-
                 InputMethodManager imm =  (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 

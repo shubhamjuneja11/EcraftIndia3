@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.TextView;
 import com.example.shubham11.ecraftindia.R;
 import com.example.shubham11.ecraftindia.models.CartModel;
 
@@ -39,8 +39,10 @@ ArrayList<CartModel> al;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
+        public TextView name,sku,cp,
         public MyViewHolder(View itemView) {
             super(itemView);
         }
     }
+
 }

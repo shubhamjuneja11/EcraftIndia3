@@ -10,4 +10,5 @@ public class AppConfig {
     public static String URL_GET_ALL_DATA="http://10.0.2.2/ecraftindia2/getdata.php";
     public static String URL_GET_PRODUCT_DETAIL="http://10.0.2.2/ecraftindia2/productdetail.php";
     public static String URL_ADD_TO_CART="http://10.0.2.2/ecraftindia2/addtocart.php";
+    public static String URL_GET_CART_DATA="http://10.0.2.2/ecraftindia2/getcartdata.php";
 }

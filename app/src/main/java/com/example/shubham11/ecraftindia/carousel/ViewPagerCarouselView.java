@@ -68,7 +68,7 @@ public class ViewPagerCarouselView extends RelativeLayout {
         this.carouselSlideInterval = carouselSlideInterval;
         initData();
         initCarousel();
-        initCarouselSlide();
+       // initCarouselSlide();
     }
 
     /**

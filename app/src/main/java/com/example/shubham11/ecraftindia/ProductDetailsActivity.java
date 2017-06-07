@@ -29,6 +29,7 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
     int cp,mrp,sp;
     String username,imei,sku;
     SQLiteHandler handler;
+    String cpr,mrpr,spr,rupee;
     ViewPagerCarouselView viewPagerCarouselView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
 
         viewPagerCarouselView = (ViewPagerCarouselView) findViewById(R.id.carousel_view);
         viewPagerCarouselView.setData(getSupportFragmentManager(), imageResourceIds, carouselSlideInterval);
+        rupee=getString(R.string.Rs)+" ";
     }
 
 
@@ -102,10 +104,8 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
                     size=array.getString(11);
                     inventory=array.getString(12);
                     inventorytype=array.getString(13);
-                    Log.e("resp",response);
 
                 } catch (JSONException e) {
-                    Log.e("respo",e.getMessage());
                     e.printStackTrace();
                 }
                 loadViews();
@@ -124,9 +124,6 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
                 params.put("username",username);
                 params.put("uniqueid",imei);
                 params.put("sku",sku);
-                Log.e("respo",imei);
-                Log.e("respo",username);
-                Log.e("respo",sku);
                 return params;
             }
         };
@@ -137,9 +134,10 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
         t_msku.setText(msku);//t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_color,t_size,t_inventory,t_inventorytype,t_name;
         t_primarycategory.setText(primarycategory);
         t_category.setText(category);
-        t_cp.setText(String.valueOf(cp));
-        t_mrp.setText(String.valueOf(mrp));
-        t_sp.setText(String.valueOf(sp));
+
+        t_cp.setText(rupee+String.valueOf(cp));
+        t_mrp.setText(rupee+String.valueOf(mrp));
+        t_sp.setText(rupee+String.valueOf(sp));
         t_material.setText(material);
         t_color.setText(color);
         t_size.setText(size);

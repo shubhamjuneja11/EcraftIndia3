@@ -1,10 +1,13 @@
 package com.example.shubham11.ecraftindia;
 
+import android.content.Intent;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -13,6 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.shubham11.ecraftindia.app.AppConfig;
 import com.example.shubham11.ecraftindia.app.AppController;
+import com.example.shubham11.ecraftindia.app.SessionManager;
 import com.example.shubham11.ecraftindia.carousel.ViewPagerCarouselView;
 import com.example.shubham11.ecraftindia.helper.SQLiteHandler;
 
@@ -27,8 +31,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_color,t_size,t_inventory,t_inventorytype,t_name;
     String msku,primarycategory,category,material,color,size,inventory,inventorytype,name;
     int cp,mrp,sp;
-    String username,imei,sku;
-    SQLiteHandler handler;
+    String sku,username,imei;
     String cpr,mrpr,spr,rupee;
     ViewPagerCarouselView viewPagerCarouselView;
     @Override
@@ -36,12 +39,10 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
         sku=getIntent().getStringExtra("sku");
-        handler=new SQLiteHandler(this);
-        username=handler.getUserDetails().get("username");
-        imei=handler.getUserDetails().get("id");
         load_data();
         initializeTextFields();
-
+        username=SessionManager.username;
+        imei=SessionManager.userid;
         long carouselSlideInterval = 3000; // 3 SECONDS
         int [] imageResourceIds = {R.drawable.tiger,R.drawable.tiger,R.drawable.tiger,R.drawable.tiger,R.drawable.tiger};
 
@@ -146,4 +147,42 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
         t_name.setText(name);
     }
 
+
+    public void addToCart(View view){
+        StringRequest request=new StringRequest(StringRequest.Method.POST, AppConfig.URL_ADD_TO_CART, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject object=new JSONObject(response);
+                    int success=object.getInt("success");
+                    if(success==1){
+                        Intent intent=new Intent(ProductDetailsActivity.this,CartActivity.class);
+                        startActivity(intent);
+                    }
+                    else
+                        Toast.makeText(ProductDetailsActivity.this, "Some error occured", Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("username", username);
+                params.put("uniqueid",imei);
+                params.put("operation","add");
+                params.put("sku",sku);
+                return params;
+            }
+        };
+        AppController.getInstance().addToRequestQueue(request);
+    }
 }

@@ -15,65 +15,36 @@
         android:orientation="horizontal"
         android:layout_marginTop="15dp"
         android:weightSum="10">
-
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_weight="4"
+        android:id="@+id/image"
+        android:src="@drawable/tiger"
+        android:layout_height="match_parent" />
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
+            android:layout_weight="6"
+            android:layout_marginLeft="20dp"
             android:orientation="vertical"
-            android:layout_weight="6">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="sku"
-                android:textSize="20dp"
-                android:textColor="@color/black"
-
-                android:id="@+id/sku"
-                />
-            <TextView
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="name"
-                android:id="@id/name"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="\u20B9  50"
-                android:textSize="20dp"
-                android:id="@+id/cp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:weightSum="10"
-            android:layout_weight="4"
-            android:layout_marginRight="15dp"
             >
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:id="@+id/image"
-                android:src="@drawable/tiger"
-                android:layout_weight="4"/>
-            <Spinner
-                android:layout_width="100dp"
-                android:layout_height="0dp"
-                android:layout_weight="3"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="right"
-                android:entries="@array/quantity"
-                android:id="@+id/quantity"
-                android:spinnerMode="dropdown"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sku"
+                android:text="sku"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                />
+            <TextView
+                android:layout_width="200dp"
+                android:layout_marginTop="30dp"
+                android:layout_height="40dp"
+                android:id="@+id/comment"
+                android:text="comment"
+                android:gravity="center"
                 android:background="@drawable/border"
-                ></Spinner>
+                />
         </LinearLayout>
     </LinearLayout>
     <View
@@ -89,8 +60,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:text="View"
-    android:id="@+id/view"
+    android:text="Share"
+    android:id="@+id/share"
     android:layout_weight="5"
     />
         <View

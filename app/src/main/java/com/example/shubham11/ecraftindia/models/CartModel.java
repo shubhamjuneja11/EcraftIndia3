@@ -5,8 +5,8 @@ package com.example.shubham11.ecraftindia.models;
  */
 
 public class CartModel {
-    String name,sku;
-    int cp,quantity;
+    String name,sku,quantity,image;
+
 
     public String getName() {
         return name;
@@ -24,27 +24,19 @@ public class CartModel {
         this.sku = sku;
     }
 
-    public int getCp() {
-        return cp;
-    }
 
-    public void setCp(int cp) {
-        this.cp = cp;
-    }
-
-    public int getQuantity() {
+    public String getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
 
-    public CartModel(String name, String sku, int cp, int quantity) {
+    public CartModel(String name, String sku,String  quantity) {
 
         this.name = name;
         this.sku = sku;
-        this.cp = cp;
         this.quantity = quantity;
     }
 }

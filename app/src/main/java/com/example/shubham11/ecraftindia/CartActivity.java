@@ -1,12 +1,16 @@
 package com.example.shubham11.ecraftindia;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,12 +40,9 @@ RecyclerView recyclerView;
     LinearLayoutManager layoutmanager;
     ArrayList<CartModel> al;
     String email,unique_id,sku;
-    int quantity,price;
-    TextView totalquantity_tv,totalprice_tv;
-    int totalquantity=0,totalprice=0;
     ProgressBar progress;
     StringRequest request;
-    String changedquantity,URL;
+    String changedquantity,URL,quantity;
     int selected_item;
     String operation;
     @Override
@@ -53,13 +54,7 @@ RecyclerView recyclerView;
         al=new ArrayList<>();
         adapter=new CartAdapter(this,al,this);
         recyclerView=(RecyclerView)findViewById(R.id.recycler);
-        totalquantity_tv=(TextView)findViewById(R.id.totalquantity);
-        totalprice_tv=(TextView)findViewById(R.id.totalprice);
         progress=(ProgressBar)findViewById(R.id.progress_bar);
-        if(totalquantity_tv==null)
-            Toast.makeText(this, "quantity", Toast.LENGTH_SHORT).show();
-        if(totalprice_tv==null)
-            Toast.makeText(this, "price", Toast.LENGTH_SHORT).show();
         recyclerView.setAdapter(adapter);
         layoutmanager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutmanager);
@@ -72,10 +67,8 @@ RecyclerView recyclerView;
     }
 
     @Override
-    public void viewProduct(String sku) {
-        Intent intent=new Intent(this,ProductDetailsActivity.class);
-        intent.putExtra("sku",sku);
-        startActivity(intent);
+    public void shareProduct(CartModel model) {
+
     }
 
     @Override
@@ -87,12 +80,34 @@ RecyclerView recyclerView;
     }
 
     @Override
-    public void changeQuantity(String sku, int quantity) {
-        progress.setVisibility(View.VISIBLE);
+    public void changeQuantity(int position) {
         URL=AppConfig.URL_ADD_TO_CART;
-        changedquantity=quantity+"";
-        this.sku=sku;
-        getStringRequest(2);
+        showChangeLangDialog();
+    }
+
+    public void showChangeLangDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.custom_dialog, null);
+        dialogBuilder.setView(dialogView);
+
+        final EditText edt = (EditText) dialogView.findViewById(R.id.edit1);
+
+        dialogBuilder.setTitle("Enter quantity/comment");
+        dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                changedquantity=edt.getText().toString().trim();
+                Toast.makeText(CartActivity.this,changedquantity, Toast.LENGTH_SHORT).show();
+                getStringRequest(3);
+            }
+        });
+        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                //pass
+            }
+        });
+        AlertDialog b = dialogBuilder.create();
+        b.show();
     }
 
     @Override
@@ -152,7 +167,7 @@ RecyclerView recyclerView;
             }
         };
             Log.e("zomie","d");
-           AppController.getInstance().addToRequestQueue(request,"op");
+           AppController.getInstance().addToRequestQueue(request);
             Log.e("zomie","e");
         }
 
@@ -166,17 +181,10 @@ RecyclerView recyclerView;
                     for(int i=0;i<array.length();i++){
                         JSONObject ob=array.getJSONObject(i);
                         sku=ob.getString("sku");
-                        quantity=ob.getInt("quantity");
-                        price=0;
-                        al.add(new CartModel("abc",sku,23,quantity));
-                        totalquantity+=quantity;
-                        totalprice+=price;
+                        quantity=ob.getString("quantity");
+                        al.add(new CartModel("abc",sku,quantity));
                     }
                     adapter.notifyDataSetChanged();
-                    if(totalquantity_tv!=null)
-                        totalquantity_tv.setText(totalquantity+"");
-                    if (totalprice_tv!=null)
-                        totalprice_tv.setText(totalprice+"");
                 }
 
                 else Toast.makeText(CartActivity.this, "Error occured", Toast.LENGTH_SHORT).show();
@@ -208,14 +216,17 @@ RecyclerView recyclerView;
         }
         public void getChangeQuantityResponse(String response){
             try {
+                Log.e("repo",response);
                 JSONObject object=new JSONObject(response);
                 int res=object.getInt("success");
                 if(res==1)
                 {
-                    /*al.remove(selected_item);
-                    adapter.notifyDataSetChanged();*/
+                    al.get(selected_item).setQuantity(changedquantity);
+                    Log.e("selected",selected_item+"");
+                    adapter.notifyDataSetChanged();
                     Toast.makeText(this, "success", Toast.LENGTH_SHORT).show();
                 }
+                else Toast.makeText(this, "Error occured", Toast.LENGTH_SHORT).show();
 
             } catch (JSONException e) {
                 e.printStackTrace();

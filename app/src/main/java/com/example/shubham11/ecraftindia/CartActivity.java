@@ -73,10 +73,38 @@ RecyclerView recyclerView;
 
     @Override
     public void removeProduct(String sku) {
-    progress.setVisibility(View.VISIBLE);
+        showDeleteDialog(sku);
+   /* progress.setVisibility(View.VISIBLE);
         URL=AppConfig.URL_ADD_TO_CART;
         this.sku=sku;
-        getStringRequest(2);
+        getStringRequest(2);*/
+    }
+    public void showDeleteDialog(final String sku){
+        AlertDialog.Builder alert = new AlertDialog.Builder(
+                this);
+        alert.setTitle("Delete");
+        alert.setMessage("Are you sure to delete item from cart");
+        alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                URL=AppConfig.URL_ADD_TO_CART;
+                CartActivity.this.sku=sku;
+                getStringRequest(2);
+                dialog.dismiss();
+
+            }
+        });
+        alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.dismiss();
+            }
+        });
+
+        alert.show();
     }
 
     @Override

@@ -31,6 +31,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="8"
                 android:gravity="left|center"
+                android:background="@drawable/rippleeffect_noborder"
                 android:hint="@string/search_hint"
                 android:layout_height="match_parent" />
 

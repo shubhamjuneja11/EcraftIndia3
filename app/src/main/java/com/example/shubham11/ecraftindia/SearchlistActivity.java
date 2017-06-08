@@ -1,6 +1,5 @@
 package com.example.shubham11.ecraftindia;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +15,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -25,6 +23,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.shubham11.ecraftindia.adapters.SearchListAdapter;
 import com.example.shubham11.ecraftindia.app.AppConfig;
 import com.example.shubham11.ecraftindia.app.AppController;
+import com.example.shubham11.ecraftindia.interfaces.RecyclerViewClickListener;
 import com.example.shubham11.ecraftindia.models.SearchListModel;
 
 import org.json.JSONArray;
@@ -35,7 +34,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SearchlistActivity extends AppCompatActivity implements RecyclerViewClickListener{
+public class SearchlistActivity extends AppCompatActivity implements RecyclerViewClickListener {
 RecyclerView recyclerView;
 
     EditText searchedit;

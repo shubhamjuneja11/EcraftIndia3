@@ -5,10 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import com.example.shubham11.ecraftindia.R;
+import com.example.shubham11.ecraftindia.interfaces.CartEventListener;
 import com.example.shubham11.ecraftindia.models.CartModel;
 
 import java.util.ArrayList;
@@ -21,10 +24,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 ArrayList<CartModel> al;
     String rupee;
     Context context;
-    public CartAdapter(Context context, ArrayList<CartModel>al){
+    CartEventListener listener;
+    public CartAdapter(Context context, ArrayList<CartModel>al,CartEventListener listener){
         this.context=context;
         this.al=al;
         rupee=context.getString(R.string.Rs);
+        this.listener=listener;
     }
     @Override
     public CartAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -46,10 +51,11 @@ ArrayList<CartModel> al;
         return al.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,AdapterView.OnItemSelectedListener {
         public TextView name,sku,cp;
         ImageView image;
         Spinner spinner;
+        Button view,remove;
         public MyViewHolder(View itemView) {
             super(itemView);
             name=(TextView)itemView.findViewById(R.id.name);
@@ -57,6 +63,33 @@ ArrayList<CartModel> al;
             cp=(TextView)itemView.findViewById(R.id.cp);
             image=(ImageView)itemView.findViewById(R.id.image);
             spinner=(Spinner)itemView.findViewById(R.id.quantity);
+            view=(Button)itemView.findViewById(R.id.view);
+            remove=(Button)itemView.findViewById(R.id.remove);
+
+            /***************listeners**********************/
+
+            view.setOnClickListener(this);
+            remove.setOnClickListener(this);
+            spinner.setOnItemSelectedListener(this);
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            if(v.getId()==R.id.view)
+                listener.viewProduct(al.get(this.getAdapterPosition()).getSku());
+            else if(v.getId()==R.id.remove)
+                listener.removeProduct(al.get(this.getAdapterPosition()).getSku());
+        }
+
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            if(view.getId()==R.id.quantity)
+                listener.changeQuantity(al.get(this.getAdapterPosition()).getSku(),al.get(this.getAdapterPosition()).getQuantity());
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
 
         }
     }

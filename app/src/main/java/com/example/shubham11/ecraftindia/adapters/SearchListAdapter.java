@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.shubham11.ecraftindia.R;
-import com.example.shubham11.ecraftindia.RecyclerViewClickListener;
+import com.example.shubham11.ecraftindia.interfaces.RecyclerViewClickListener;
 import com.example.shubham11.ecraftindia.models.SearchListModel;
 
 import java.util.ArrayList;

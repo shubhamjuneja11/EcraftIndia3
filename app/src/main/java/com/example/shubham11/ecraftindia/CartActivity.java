@@ -16,6 +16,7 @@ import com.example.shubham11.ecraftindia.adapters.CartAdapter;
 import com.example.shubham11.ecraftindia.app.AppConfig;
 import com.example.shubham11.ecraftindia.app.AppController;
 import com.example.shubham11.ecraftindia.app.SessionManager;
+import com.example.shubham11.ecraftindia.interfaces.CartEventListener;
 import com.example.shubham11.ecraftindia.models.CartModel;
 
 import org.json.JSONArray;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CartActivity extends AppCompatActivity {
+public class CartActivity extends AppCompatActivity implements CartEventListener {
 RecyclerView recyclerView;
     CartAdapter adapter;
     LinearLayoutManager layoutmanager;
@@ -42,7 +43,7 @@ RecyclerView recyclerView;
         email= SessionManager.username ;
         unique_id=SessionManager.userid;
         al=new ArrayList<>();
-        adapter=new CartAdapter(this,al);
+        adapter=new CartAdapter(this,al,this);
         recyclerView=(RecyclerView)findViewById(R.id.recycler);
         totalquantity_tv=(TextView)findViewById(R.id.totalquantity);
         totalprice_tv=(TextView)findViewById(R.id.totalprice);
@@ -102,5 +103,20 @@ RecyclerView recyclerView;
             }
         };
         AppController.getInstance().addToRequestQueue(request);
+    }
+
+    @Override
+    public void viewProduct(String sku) {
+
+    }
+
+    @Override
+    public void removeProduct(String sku) {
+
+    }
+
+    @Override
+    public void changeQuantity(String sku, int quantity) {
+
     }
 }

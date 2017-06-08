@@ -1,32 +1,18 @@
 package com.example.shubham11.ecraftindia;
 
-import android.app.ProgressDialog;
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
@@ -34,7 +20,7 @@ import com.example.shubham11.ecraftindia.adapters.MainactivityAdapter;
 import com.example.shubham11.ecraftindia.app.AppConfig;
 import com.example.shubham11.ecraftindia.app.AppController;
 import com.example.shubham11.ecraftindia.helper.SQLiteHandler;
-import com.example.shubham11.ecraftindia.models.ProductModel;
+import com.example.shubham11.ecraftindia.interfaces.RecyclerViewClickListener;
 import com.example.shubham11.ecraftindia.models.SearchListModel;
 
 import org.json.JSONArray;

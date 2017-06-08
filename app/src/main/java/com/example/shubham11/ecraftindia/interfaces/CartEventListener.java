@@ -8,4 +8,5 @@ public interface CartEventListener {
     public void viewProduct(String sku);
     public void removeProduct(String sku);
     public void changeQuantity(String sku,int quantity);
+    public void getSelecteditem(int position);
 }

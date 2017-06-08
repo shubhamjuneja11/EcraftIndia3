@@ -71,7 +71,7 @@ ArrayList<CartModel> al;
             view.setOnClickListener(this);
             remove.setOnClickListener(this);
             spinner.setOnItemSelectedListener(this);
-
+            itemView.setOnClickListener(this);
         }
 
         @Override
@@ -80,6 +80,7 @@ ArrayList<CartModel> al;
                 listener.viewProduct(al.get(this.getAdapterPosition()).getSku());
             else if(v.getId()==R.id.remove)
                 listener.removeProduct(al.get(this.getAdapterPosition()).getSku());
+            listener.getSelecteditem(getAdapterPosition());
         }
 
         @Override

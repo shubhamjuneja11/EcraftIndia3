@@ -27,6 +27,7 @@ ArrayList<CartModel> al;
     String rupee;
     Context context;
     CartEventListener listener;
+    ImageView iv;
     public CartAdapter(Context context, ArrayList<CartModel>al,CartEventListener listener){
         this.context=context;
         this.al=al;
@@ -44,6 +45,7 @@ ArrayList<CartModel> al;
         CartModel model=al.get(position);
         holder.sku.setText(model.getSku());
         holder.comment.setText(model.getQuantity());
+
 
     }
 
@@ -65,6 +67,7 @@ ArrayList<CartModel> al;
             comment=(TextView)itemView.findViewById(R.id.comment);
             view=(Button)itemView.findViewById(R.id.share);
             remove=(Button)itemView.findViewById(R.id.remove);
+            iv=image;
 
             /***************listeners**********************/
 
@@ -76,9 +79,16 @@ ArrayList<CartModel> al;
 
         @Override
         public void onClick(View v) {
+
             listener.getSelecteditem(getAdapterPosition());
             if(v.getId()==R.id.share)
-                listener.shareProduct(al.get(getAdapterPosition()));
+            {
+                View view = v.getRootView();
+                String sku=((TextView)view.findViewById(R.id.sku)).getText().toString();
+                String comment=((TextView)view.findViewById(R.id.comment)).getText().toString();
+                iv = (ImageView) view.findViewById(R.id.image);
+                listener.shareProduct(al.get(getAdapterPosition()),iv,sku,comment);
+            }
             else if(v.getId()==R.id.remove)
                 listener.removeProduct(al.get(this.getAdapterPosition()).getSku());
             else if(v.getId()==R.id.comment)

@@ -1,5 +1,7 @@
 package com.example.shubham11.ecraftindia.interfaces;
 
+import android.widget.ImageView;
+
 import com.example.shubham11.ecraftindia.models.CartModel;
 
 /**
@@ -7,7 +9,7 @@ import com.example.shubham11.ecraftindia.models.CartModel;
  */
 
 public interface CartEventListener {
-    public void shareProduct(CartModel model);
+    public void shareProduct(CartModel model,ImageView imageView,String sku,String comment);
     public void removeProduct(String sku);
     public void changeQuantity(int position);
     public void getSelecteditem(int position);

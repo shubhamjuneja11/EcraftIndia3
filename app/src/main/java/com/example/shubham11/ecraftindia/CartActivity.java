@@ -1,7 +1,12 @@
 package com.example.shubham11.ecraftindia;
 
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
+import android.support.annotation.AnyRes;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +31,8 @@ import com.example.shubham11.ecraftindia.app.AppController;
 import com.example.shubham11.ecraftindia.app.SessionManager;
 import com.example.shubham11.ecraftindia.interfaces.CartEventListener;
 import com.example.shubham11.ecraftindia.models.CartModel;
+import com.example.shubham11.ecraftindia.util.IntentShareHelper;
+import com.example.shubham11.ecraftindia.util.UtilityFile;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -67,7 +75,10 @@ RecyclerView recyclerView;
     }
 
     @Override
-    public void shareProduct(CartModel model) {
+    public void shareProduct(CartModel model, ImageView iv,String sku,String comment) {
+        Uri uri= UtilityFile.getLocalBitmapUri(this,iv);
+        String text="#"+sku+"\n"+comment;
+        IntentShareHelper.shareOnWhatsapp(this,text,uri);
 
     }
 
@@ -260,4 +271,12 @@ RecyclerView recyclerView;
                 e.printStackTrace();
             }
         }
+    public static final Uri getUriToDrawable(@NonNull Context context,
+                                             @AnyRes int drawableId) {
+        Uri imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
+                "://" + context.getResources().getResourcePackageName(drawableId)
+                + '/' + context.getResources().getResourceTypeName(drawableId)
+                + '/' + context.getResources().getResourceEntryName(drawableId) );
+        return imageUri;
+    }
 }

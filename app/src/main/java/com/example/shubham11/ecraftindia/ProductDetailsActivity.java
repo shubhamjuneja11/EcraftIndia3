@@ -85,6 +85,7 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
                     JSONObject object=new JSONObject(response);
                     JSONArray array=object.getJSONArray("detail");
                     access=object.getString("editable_access");
+                    int getaccess=object.getInt("access");
                     msku=array.getString(1);
                     images=array.getString(2);
 
@@ -98,24 +99,11 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
                     name=array.getString(3);
                     primarycategory=array.getString(4);
                     category=array.getString(5);
-                    try {
+                    if(getaccess==1)
                         cp = array.getInt(6);
-                    }
-                    catch (Exception e){
-                     cp=0;
-                    }
-                    try {
                         mrp = array.getInt(7);
-                    }
-                    catch (Exception e){
-                        mrp=0;
-                    }
-                    try {
                         sp = array.getInt(8);
-                    }
-                    catch (Exception e){
-                        sp=0;
-                    }
+
                     material=array.getString(9);
                     color=array.getString(10);
                     size=array.getString(11);

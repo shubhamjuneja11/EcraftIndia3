@@ -214,7 +214,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
     @Override
     public void recycleritemClicked(View v, int position) {
         String sku=al.get(position).getSku();
-        Intent intent=new Intent(this,ProductDetailsActivity.class);
+        Intent intent=new Intent(this,ProductDetailsMerchant.class);
         intent.putExtra("sku",sku);
         startActivity(intent);
     }

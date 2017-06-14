@@ -16,6 +16,13 @@ public class SearchListModel {
         this.cp = cp;
     }
 
+    public SearchListModel(String imageurl, String name, String sku, int sp) {
+        this.imageurl = imageurl;
+        this.name = name;
+        this.sku = sku;
+        this.sp = sp;
+    }
+
     public String getImageurl() {
 
         return imageurl;

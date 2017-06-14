@@ -51,14 +51,13 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
     LinearLayoutManager layoutmanager;
     boolean loading=true;
     ProgressBar dialog;
-    String values[],URL,searchalpha;
+    String values[],searchalpha;
     boolean fromalpha=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         fromalpha=false;
-        URL= AppConfig.URL_GET_ALL_DATA;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -148,8 +147,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
 
     /*********************************Function to get data from server************************************/
     public void loaddata(){
+        Log.e("hello",AppConfig.URL_GET_ALL_DATA);
         dialog.setVisibility(View.VISIBLE);
-        StringRequest request=new StringRequest(StringRequest.Method.POST,URL, new Response.Listener<String>() {
+        StringRequest request=new StringRequest(StringRequest.Method.POST,AppConfig.URL_GET_ALL_DATA, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {Log.e("abcd",response);
@@ -159,6 +159,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
                         JSONObject object1=array.getJSONObject(i);
                         name=object1.getString("name");
                         sku=object1.getString("sku");
+
                         sp=object1.getInt("cp");
                         imageurl=object1.getString("images");
                         al.add(new SearchListModel(imageurl,name,sku,sp,sp));

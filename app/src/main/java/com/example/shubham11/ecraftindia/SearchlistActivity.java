@@ -23,6 +23,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.shubham11.ecraftindia.adapters.SearchListAdapter;
 import com.example.shubham11.ecraftindia.app.AppConfig;
 import com.example.shubham11.ecraftindia.app.AppController;
+import com.example.shubham11.ecraftindia.helper.SQLiteHandler;
 import com.example.shubham11.ecraftindia.interfaces.RecyclerViewClickListener;
 import com.example.shubham11.ecraftindia.models.SearchListModel;
 
@@ -47,13 +48,16 @@ RecyclerView recyclerView;
     boolean loading=true;
     int count=0;
     private String imageurl,name,sku;
-    private int sp;
+    private int sp,cp;
+    SQLiteHandler handler;
     ProgressBar dialog;
+    String access_role;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_searchlist);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        handler=new SQLiteHandler(this);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -66,7 +70,7 @@ RecyclerView recyclerView;
         });
         dialog=(ProgressBar)findViewById(R.id.progressbar);
         dialog.setVisibility(View.INVISIBLE);
-
+        access_role=handler.getUserDetails().get("access_role");
         al=new ArrayList<>();
         adapter=new SearchListAdapter(this,al,this);
        recyclerView=(RecyclerView)findViewById(R.id.recycler);
@@ -153,13 +157,17 @@ RecyclerView recyclerView;
                     Log.e("response",response);
                     JSONObject object=new JSONObject(response);
                     JSONArray array1=object.getJSONArray("products");
+                    int role=object.getInt("access_role");
                     for(int i=0;i<array1.length();i++){
                        JSONObject object1=array1.getJSONObject(i);
                         name=object1.getString("name");
                         sku=object1.getString("sku");
-                       sp=0;
+                        sp=object1.getInt("sp");
                         imageurl=object1.getString("images");
-                        al.add(new SearchListModel(imageurl,name,sku,sp,sp));
+                        if(role==0)
+                            al.add(new SearchListModel(imageurl,name,sku,sp));
+                        else
+                        al.add(new SearchListModel(imageurl,name,sku,sp,cp));
 
                     } adapter.notifyDataSetChanged();
 
@@ -188,6 +196,7 @@ RecyclerView recyclerView;
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("query",query.trim());
                 params.put("count",String.valueOf(count));
+                params.put("access_role",access_role);
 
                 return params;
             }

@@ -2,6 +2,7 @@ package com.example.shubham11.ecraftindia.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,10 +26,13 @@ public class MainactivityAdapter extends RecyclerView.Adapter<MainactivityAdapte
     ArrayList<SearchListModel> al;
     Context context;
     RecyclerViewClickListener itemlistener;
+    RequestOptions options;
     public MainactivityAdapter(Context context, ArrayList<SearchListModel> al, RecyclerViewClickListener itemlistener){
         this.context=context;
         this.al=al;
         this.itemlistener=itemlistener;
+        options=new RequestOptions();
+        options.placeholder(R.drawable.tiger);
 
     }
     @Override
@@ -46,9 +50,16 @@ public class MainactivityAdapter extends RecyclerView.Adapter<MainactivityAdapte
         //holder.price.setText("50 \\u20B9");
 
         Glide.with(context).load(UtilityFile.getSingleImage(model.getImageurl()))
-                .thumbnail(0.5f)
+                .thumbnail(0.5f).apply(options)
                 .into(holder.image);
-        holder.price.setText(model.getCp());
+       try {
+           holder.price.setText(String.valueOf(model.getCp()));
+       }
+       catch (Exception e){
+           if(holder.price==null)
+               Log.e("popa","2");
+           e.printStackTrace();
+       }
     }
 
     @Override
@@ -63,9 +74,10 @@ public class MainactivityAdapter extends RecyclerView.Adapter<MainactivityAdapte
             super(itemView);
             image=(ImageView)itemView.findViewById(R.id.productimage);
             name=(TextView)itemView.findViewById(R.id.name);
-            price=(TextView)itemView.findViewById(R.id.price);
+            price=(TextView)itemView.findViewById(R.id.myprice);
             sku=(TextView)itemView.findViewById(R.id.sku);
             itemView.setOnClickListener(this);
+            if(price==null) Log.e("popa","1");
         }
 
         @Override

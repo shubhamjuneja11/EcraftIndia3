@@ -88,7 +88,8 @@ EditText emailtext,passwordtext;
 
                            int success=res.getInt("success");
                             if(success==1){
-                                db.addUser(email);
+                                String accesS_role=res.getString("access_role");
+                                db.addUser(email,accesS_role);
                                 sessionManager.setLogin(true);
                                 Intent intent=new Intent(LoginActivity.this,MainActivity.class);
                                 startActivity(intent);

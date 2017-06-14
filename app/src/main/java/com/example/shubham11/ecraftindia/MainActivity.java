@@ -1,5 +1,6 @@
 package com.example.shubham11.ecraftindia;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,7 +11,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.android.volley.Response;
@@ -47,10 +51,14 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
     LinearLayoutManager layoutmanager;
     boolean loading=true;
     ProgressBar dialog;
+    String values[],URL,searchalpha;
+    boolean fromalpha=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        fromalpha=false;
+        URL= AppConfig.URL_GET_ALL_DATA;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -69,6 +77,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
         recyclerView.setLayoutManager(mLayoutManager);
         //recyclerView.addItemDecoration(new Decoration(this, LinearLayoutManager.HORIZONTAL));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        values=new String[26];
+        int k=0;
+        for(char c='A';c<='Z';c++){
+            values[k++]=c+"";
+        }
 /**************************Recycler Scroll Listener**************************************************/
 
 
@@ -135,10 +149,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
     /*********************************Function to get data from server************************************/
     public void loaddata(){
         dialog.setVisibility(View.VISIBLE);
-        StringRequest request=new StringRequest(StringRequest.Method.POST, AppConfig.URL_GET_ALL_DATA, new Response.Listener<String>() {
+        StringRequest request=new StringRequest(StringRequest.Method.POST,URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                try {
+                try {Log.e("abcd",response);
                     JSONObject object=new JSONObject(response);
                     JSONArray array=object.getJSONArray("products");
                     for(int i=0;i<array.length();i++){
@@ -174,6 +188,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
                 params.put("username",username);
                 params.put("uniqueid",uniqueid);
                 params.put("count",String.valueOf(count));
+                if(fromalpha) {
+                    params.put("alpha", searchalpha);
+                }
 
                 return params;
             }
@@ -198,6 +215,32 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
         Intent intent=new Intent(this,CartActivity.class);
         startActivity(intent);
     }
+    public void refine(View view){
+        final Dialog dialog=new Dialog(this);
+        dialog.setContentView(R.layout.customdialog);
+        dialog.setTitle("Select");
+        ListView listView=(ListView) dialog.findViewById(R.id.listview);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                searchalpha=values[position];
+                fromalpha=true;
+                count=0;
+                loaddata();
+                dialog.dismiss();
+                al.clear();
+                adapter.notifyDataSetChanged();
+            }
+        });
+        try {
+            ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, values);
+            listView.setAdapter(adapter);
 
+            dialog.show();
+        }
+        catch (Exception e){
+
+        }
+    }
 
 }

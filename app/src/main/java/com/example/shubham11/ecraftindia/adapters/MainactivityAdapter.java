@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.shubham11.ecraftindia.R;
 import com.example.shubham11.ecraftindia.interfaces.RecyclerViewClickListener;
 import com.example.shubham11.ecraftindia.models.SearchListModel;
@@ -46,7 +47,6 @@ public class MainactivityAdapter extends RecyclerView.Adapter<MainactivityAdapte
         Glide.with(context).load(R.drawable.tiger)
                 .thumbnail(0.5f)
                 .into(holder.image);
-
 
     }
 

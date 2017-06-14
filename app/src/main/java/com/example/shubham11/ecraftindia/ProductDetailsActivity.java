@@ -35,7 +35,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_color,t_size,t_inventory,t_inventorytype,t_name;
     String msku,primarycategory,category,material,color,size,inventory,inventorytype,name;
     int cp,mrp,sp;
-    String sku,username,imei;
+    String sku,username,imei,access;
     String cpr,mrpr,spr,rupee;
     ViewPagerCarouselView viewPagerCarouselView;
     Intent intent;
@@ -86,6 +86,7 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
                 try {
                     JSONObject object=new JSONObject(response);
                     JSONArray array=object.getJSONArray("detail");
+                    access=object.getString("editable_access");
                     msku=array.getString(1);
                     name=array.getString(3);
                     primarycategory=array.getString(4);
@@ -207,5 +208,11 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
              intent=new Intent(this,CartActivity.class);
                 startActivity(intent);
         return true;
+    }
+    public void editProduct(){
+        Intent intent=new Intent(this,EditDetailsActivity.class);
+        intent.putExtra("access",access);
+        startActivity(intent);
+
     }
 }

@@ -48,13 +48,13 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         sku=getIntent().getStringExtra("sku");
-        load_data();
         initializeTextFields();
         username=SessionManager.username;
         imei=SessionManager.userid;
         long carouselSlideInterval = 3000; // 3 SECONDS
 
         rupee=getString(R.string.Rs)+" ";
+        load_data();
     }
 
 
@@ -85,7 +85,8 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
                     JSONObject object=new JSONObject(response);
                     JSONArray array=object.getJSONArray("detail");
                     access=object.getString("editable_access");
-                    int getaccess=object.getInt("access");
+                   // int getaccess=object.getInt("access");
+                    int getaccess=0;
                     msku=array.getString(1);
                     images=array.getString(2);
 
@@ -129,6 +130,7 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
                 params.put("username",username);
                 params.put("uniqueid",imei);
                 params.put("sku",sku);
+                Log.e("abcde",username); Log.e("abcde",imei); Log.e("abcde",sku);
                 return params;
             }
         };

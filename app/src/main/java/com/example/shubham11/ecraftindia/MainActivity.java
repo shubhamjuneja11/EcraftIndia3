@@ -24,6 +24,7 @@ import com.example.shubham11.ecraftindia.adapters.MainactivityAdapter;
 import com.example.shubham11.ecraftindia.adapters.SearchAdapterNoCp;
 import com.example.shubham11.ecraftindia.app.AppConfig;
 import com.example.shubham11.ecraftindia.app.AppController;
+import com.example.shubham11.ecraftindia.app.SessionManager;
 import com.example.shubham11.ecraftindia.helper.SQLiteHandler;
 import com.example.shubham11.ecraftindia.interfaces.RecyclerViewClickListener;
 import com.example.shubham11.ecraftindia.models.SearchListModel;
@@ -219,7 +220,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
     }
 
     public void openProfile(View view){
-        Intent intent=new Intent(this,ProfileActivity.class);
+        SessionManager sessionManager=new SessionManager(this);
+        sessionManager.setLogin(false);
+        Intent intent=new Intent(this,LoginActivity.class);
         startActivity(intent);
     }
     public void openCart(View view){

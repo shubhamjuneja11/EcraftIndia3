@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,11 +40,21 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
     String sku,username,imei,access,images;
     String cpr,mrpr,spr,rupee;
     ViewPagerCarouselView viewPagerCarouselView;
+    SQLiteHandler handler;
     Intent intent;
+    String role;
+    boolean decide=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        handler=new SQLiteHandler(this);
+        role=handler.getUserDetails().get("access_role");
+        if(!role.equals("employee"))
         setContentView(R.layout.activity_product_details);
+        else {
+            setContentView(R.layout.product_details_no_cp);
+            decide=false;
+        }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -51,8 +62,6 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
         initializeTextFields();
         username=SessionManager.username;
         imei=SessionManager.userid;
-        long carouselSlideInterval = 3000; // 3 SECONDS
-
         rupee=getString(R.string.Rs)+" ";
         load_data();
     }
@@ -67,6 +76,7 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
         t_name=(TextView)findViewById(R.id.name);
         t_primarycategory=(TextView)findViewById(R.id.primarycategory);
         t_category=(TextView)findViewById(R.id.category);
+        if(decide)
         t_cp=(TextView)findViewById(R.id.cp);
         t_mrp=(TextView)findViewById(R.id.mrp);
         t_sp=(TextView)findViewById(R.id.sp);
@@ -85,8 +95,6 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
                     JSONObject object=new JSONObject(response);
                     JSONArray array=object.getJSONArray("detail");
                     access=object.getString("editable_access");
-                   // int getaccess=object.getInt("access");
-                    int getaccess=0;
                     msku=array.getString(1);
                     images=array.getString(2);
 
@@ -100,7 +108,8 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
                     name=array.getString(3);
                     primarycategory=array.getString(4);
                     category=array.getString(5);
-                    if(getaccess==1)
+
+                    if(decide)
                         cp = array.getInt(6);
                         mrp = array.getInt(7);
                         sp = array.getInt(8);
@@ -112,6 +121,7 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
                     inventorytype=array.getString(13);
 
                 } catch (JSONException e) {
+                    Log.e("ab","duetome");
                     e.printStackTrace();
                 }
                 loadViews();
@@ -141,7 +151,7 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
         t_msku.setText(msku);//t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_color,t_size,t_inventory,t_inventorytype,t_name;
         t_primarycategory.setText(primarycategory);
         t_category.setText(category);
-
+if(decide)
         t_cp.setText(rupee+String.valueOf(cp));
         t_mrp.setText(rupee+String.valueOf(mrp));
         t_sp.setText(rupee+String.valueOf(sp));

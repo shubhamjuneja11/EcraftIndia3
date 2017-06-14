@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="10"
+    android:id="@+id/mylinear"
     tools:context="com.example.shubham11.ecraftindia.ProductDetailsActivity">
 <android.support.v7.widget.Toolbar
     android:layout_width="match_parent"
@@ -164,6 +165,7 @@
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:weightSum="10"
+            android:id="@+id/cplayout"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
             android:layout_height="wrap_content">

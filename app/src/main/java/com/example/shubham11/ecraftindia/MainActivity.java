@@ -21,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.shubham11.ecraftindia.adapters.MainactivityAdapter;
+import com.example.shubham11.ecraftindia.adapters.SearchAdapterNoCp;
 import com.example.shubham11.ecraftindia.app.AppConfig;
 import com.example.shubham11.ecraftindia.app.AppController;
 import com.example.shubham11.ecraftindia.helper.SQLiteHandler;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
     LinearLayoutManager layoutmanager;
     boolean loading=true;
     ProgressBar dialog;
-    String values[],searchalpha;
+    String values[],searchalpha,role;
     boolean fromalpha=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
         recyclerView=(RecyclerView)findViewById(R.id.recycler);
         adapter=new MainactivityAdapter(this,al,this);
         uniqueid=handler.getUserDetails().get("id");
+        role=handler.getUserDetails().get("access_role");
         recyclerView.setAdapter(adapter);
         layoutmanager=new LinearLayoutManager(this);
         final RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
@@ -139,7 +141,15 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SearchlistActivity.class);
+                Intent intent;
+                String role=MainActivity.this.role.toLowerCase();
+                if(role.equals("admin")||role.equals("owner")||role.equals("manager")) {
+                     intent= new Intent(MainActivity.this, SearchlistActivity.class);
+
+                }
+                else{
+                     intent = new Intent(MainActivity.this, SearchAdapterNoCp.class);
+                }
                 startActivity(intent);
             }
         });

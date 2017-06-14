@@ -36,13 +36,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SearchlistActivity extends AppCompatActivity implements RecyclerViewClickListener {
-RecyclerView recyclerView;
+public class SearchListActivityNoCp extends AppCompatActivity implements RecyclerViewClickListener {
+    RecyclerView recyclerView;
 
     EditText searchedit;
     ImageView clearall;
     String query;
-    SearchListAdapter adapter;
+    SearchAdapterNoCp adapter;
 
     ArrayList<SearchListModel> al;
     LinearLayoutManager layoutmanager;
@@ -74,8 +74,8 @@ RecyclerView recyclerView;
         dialog.setVisibility(View.INVISIBLE);
         access_role=handler.getUserDetails().get("access_role");
         al=new ArrayList<>();
-        adapter=new SearchListAdapter(this,al,this);
-       recyclerView=(RecyclerView)findViewById(R.id.recycler);
+        adapter=new SearchAdapterNoCp(this,al,this);
+        recyclerView=(RecyclerView)findViewById(R.id.recycler);
         recyclerView.setAdapter(adapter);
         layoutmanager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutmanager);
@@ -95,26 +95,26 @@ RecyclerView recyclerView;
                 searchedit.setText("");
             }
         });
-       searchedit.addTextChangedListener(new TextWatcher() {
-           @Override
-           public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        searchedit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-           }
+            }
 
-           @Override
-           public void onTextChanged(CharSequence s, int start, int before, int count) {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 al.clear();
-               adapter.notifyDataSetChanged();
-           }
+                adapter.notifyDataSetChanged();
+            }
 
-           @Override
-           public void afterTextChanged(Editable s) {
-               count=0;
+            @Override
+            public void afterTextChanged(Editable s) {
+                count=0;
                 query=s.toString();
-               if(query.length()>2)
-                hitdatabase(query);
-           }
-       });
+                if(query.length()>2)
+                    hitdatabase(query);
+            }
+        });
 
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -147,7 +147,7 @@ RecyclerView recyclerView;
         });
     }
     public void loaddata(){
-       count++;
+        count++;
         hitdatabase(query);
     }
     public void hitdatabase(final String query){
@@ -161,13 +161,12 @@ RecyclerView recyclerView;
                     JSONArray array1=object.getJSONArray("products");
                     int role=object.getInt("access_role");
                     for(int i=0;i<array1.length();i++){
-                       JSONObject object1=array1.getJSONObject(i);
+                        JSONObject object1=array1.getJSONObject(i);
                         name=object1.getString("name");
                         sku=object1.getString("sku");
                         sp=object1.getInt("sp");
-                        cp=object1.getInt("cp");
                         imageurl=object1.getString("images");
-                        al.add(new SearchListModel(imageurl,name,sku,sp,cp));
+                            al.add(new SearchListModel(imageurl,name,sku,sp));
 
                     } adapter.notifyDataSetChanged();
 

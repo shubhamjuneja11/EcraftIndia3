@@ -20,32 +20,30 @@ import java.util.ArrayList;
  * Created by shubham11 on 28/5/17.
  */
 
-public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.MyViewHolder> {
+public class SearchAdapterNoCp extends RecyclerView.Adapter<SearchAdapterNoCp.MyViewHolder> {
     ArrayList<SearchListModel> al;
     Context context;
     RecyclerViewClickListener listener;
-    public SearchListAdapter(Context context,ArrayList<SearchListModel> al,RecyclerViewClickListener listener){
+    public SearchAdapterNoCp(Context context,ArrayList<SearchListModel> al,RecyclerViewClickListener listener){
         this.al=al;
         this.context=context;
         this.listener=listener;
     }
     @Override
-    public SearchListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View item= LayoutInflater.from(parent.getContext()).inflate(R.layout.searchlist_row,parent,false);
+    public SearchAdapterNoCp.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View item= LayoutInflater.from(parent.getContext()).inflate(R.layout.searchlistrow_nocp,parent,false);
         return new MyViewHolder(item);
     }
 
     @Override
-    public void onBindViewHolder(SearchListAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(SearchAdapterNoCp.MyViewHolder holder, int position) {
         SearchListModel model=al.get(position);
         holder.name.setText(model.getName());
         holder.sku.setText(model.getSku());
-        String cp="C.P.      \u20B9 "+String.valueOf(model.getCp());
-        holder.cp.setText(cp);
         String sp="S.P.      \u20B9 "+String.valueOf(model.getSp());
         holder.sp.setText(sp);
 
-       Glide.with(context).load(UtilityFile.getSingleImage(model.getImageurl()))
+        Glide.with(context).load(UtilityFile.getSingleImage(model.getImageurl()))
                 .thumbnail(0.5f)
                 .into(holder.image);
     }
@@ -61,7 +59,6 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.My
         public MyViewHolder(View itemView) {
             super(itemView);
             image=(ImageView)itemView.findViewById(R.id.image);
-            cp=(TextView)itemView.findViewById(R.id.cp);
             sp=(TextView)itemView.findViewById(R.id.sp);
             name=(TextView)itemView.findViewById(R.id.name);
             sku=(TextView)itemView.findViewById(R.id.sku);

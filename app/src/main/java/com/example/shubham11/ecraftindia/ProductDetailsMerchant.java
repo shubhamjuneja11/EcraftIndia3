@@ -80,6 +80,7 @@ public class ProductDetailsMerchant extends AppCompatActivity {
     }
 
     public void load_data(){
+
         StringRequest request=new StringRequest(StringRequest.Method.POST, AppConfig.URL_GET_PRODUCT_DETAIL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -108,7 +109,7 @@ public class ProductDetailsMerchant extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Log.e("helloz",error.toString());
             }
         }
 
@@ -119,7 +120,10 @@ public class ProductDetailsMerchant extends AppCompatActivity {
                 params.put("username",username);
                 params.put("uniqueid",imei);
                 params.put("sku",sku);
-                Log.e("abcde",username); Log.e("abcde",imei); Log.e("abcde",sku);
+                Log.e("abcde",username);
+                Log.e("abcde",imei);
+                Log.e("abcde",sku);
+
                 return params;
             }
         };

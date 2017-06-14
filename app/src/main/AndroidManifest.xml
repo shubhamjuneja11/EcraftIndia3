@@ -46,6 +46,8 @@
         <activity android:name=".CartActivity" />
         <activity android:name=".EditDetailsActivity" />
         <activity android:name=".ProductDetailsMerchant"></activity>
+        <activity android:name=".SearchListActivityNoCp"></activity>
+
     </application>
 
 </manifest>

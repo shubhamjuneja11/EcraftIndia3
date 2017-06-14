@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
 
                 }
                 else{
-                     intent = new Intent(MainActivity.this, SearchAdapterNoCp.class);
+                     intent = new Intent(MainActivity.this, SearchListActivityNoCp.class);
                 }
                 startActivity(intent);
             }
@@ -214,7 +214,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
     @Override
     public void recycleritemClicked(View v, int position) {
         String sku=al.get(position).getSku();
-        Intent intent=new Intent(this,ProductDetailsMerchant.class);
+        Intent intent;
+        if(role.equals("merchant"))
+       intent=new Intent(this,ProductDetailsMerchant.class);
+        else
+            intent=new Intent(this,ProductDetailsActivity.class);
         intent.putExtra("sku",sku);
         startActivity(intent);
     }
@@ -222,6 +226,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
     public void openProfile(View view){
         SessionManager sessionManager=new SessionManager(this);
         sessionManager.setLogin(false);
+        handler.deleteUsers();
         Intent intent=new Intent(this,LoginActivity.class);
         startActivity(intent);
     }

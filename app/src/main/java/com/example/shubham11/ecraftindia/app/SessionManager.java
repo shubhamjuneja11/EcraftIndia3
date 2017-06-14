@@ -2,6 +2,7 @@ package com.example.shubham11.ecraftindia.app;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.example.shubham11.ecraftindia.helper.SQLiteHandler;
 
@@ -24,7 +25,7 @@ public class SessionManager {
         handler=new SQLiteHandler(context);
         username=handler.getUserDetails().get("username");
         userid=handler.getUserDetails().get("id");
-
+        editor.commit();
     }
 
     public void setLogin(boolean f){

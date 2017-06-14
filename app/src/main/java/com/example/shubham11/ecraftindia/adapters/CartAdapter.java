@@ -82,7 +82,7 @@ ArrayList<CartModel> al;
 
             listener.getSelecteditem(getAdapterPosition());
             if(v.getId()==R.id.share)
-            {
+            {Log.e("yup","yup");
                 View view = v.getRootView();
                 String sku=((TextView)view.findViewById(R.id.sku)).getText().toString();
                 String comment=((TextView)view.findViewById(R.id.comment)).getText().toString();

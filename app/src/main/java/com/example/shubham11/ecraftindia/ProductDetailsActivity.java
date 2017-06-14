@@ -171,6 +171,8 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
                     else
                         Toast.makeText(ProductDetailsActivity.this, "Some error occured", Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
+                    Intent intent=new Intent(ProductDetailsActivity.this,CartActivity.class);
+                    startActivity(intent);
                     e.printStackTrace();
                 }
 
@@ -209,7 +211,7 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
                 startActivity(intent);
         return true;
     }
-    public void editProduct(){
+    public void editProduct(View view){
         Intent intent=new Intent(this,EditDetailsActivity.class);
         intent.putExtra("access",access);
         startActivity(intent);

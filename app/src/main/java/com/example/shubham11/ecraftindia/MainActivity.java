@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
                         JSONObject object1=array.getJSONObject(i);
                         name=object1.getString("name");
                         sku=object1.getString("sku");
-                        sp=0;
+                        sp=object1.getInt("cp");
                         imageurl=object1.getString("images");
                         al.add(new SearchListModel(imageurl,name,sku,sp,sp));
                     }

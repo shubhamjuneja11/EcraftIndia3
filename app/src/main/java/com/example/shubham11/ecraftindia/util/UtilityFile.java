@@ -62,4 +62,12 @@ public class UtilityFile {
         }
         return bmpUri;
     }
+
+    public static String getSingleImage(String s){
+        String [] images=s.split(";");
+        return images[0];
+    }
+    public static String[] getallImages(String s){
+        return s.split(";");
+    }
 }

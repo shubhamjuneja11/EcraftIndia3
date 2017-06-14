@@ -13,6 +13,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.shubham11.ecraftindia.R;
 import com.example.shubham11.ecraftindia.interfaces.RecyclerViewClickListener;
 import com.example.shubham11.ecraftindia.models.SearchListModel;
+import com.example.shubham11.ecraftindia.util.UtilityFile;
 
 import java.util.ArrayList;
 
@@ -44,10 +45,10 @@ public class MainactivityAdapter extends RecyclerView.Adapter<MainactivityAdapte
 //        holder.price.setText(model.getCp());
         //holder.price.setText("50 \\u20B9");
 
-        Glide.with(context).load(R.drawable.tiger)
+        Glide.with(context).load(UtilityFile.getSingleImage(model.getImageurl()))
                 .thumbnail(0.5f)
                 .into(holder.image);
-
+        holder.price.setText(model.getCp());
     }
 
     @Override

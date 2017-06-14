@@ -9,21 +9,23 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.shubham11.ecraftindia.R;
 
 public class ViewPagerCarouselFragment extends Fragment {
     public static final String IMAGE_RESOURCE_ID = "image_resource_id";
 
     private ImageView ivCarouselImage;
-    private int imageResourceId;
+    private String imageResourceId;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.view_pager_carousel_fragment, container, false);
         ivCarouselImage = (ImageView) v.findViewById(R.id.iv_carousel_image);
-        imageResourceId = getArguments().getInt(IMAGE_RESOURCE_ID, R.drawable.tiger); // default to car1 image resource
-        ivCarouselImage.setImageResource(imageResourceId);
+        imageResourceId = getArguments().getString(IMAGE_RESOURCE_ID); // default to car1 image resource
+       // ivCarouselImage.setImageResource(imageResourceId);
+        Glide.with(getContext()).load(imageResourceId).into(ivCarouselImage);
 
         v.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -25,7 +25,7 @@ public class ViewPagerCarouselView extends RelativeLayout {
     private ViewPager vpCarousel;                           // ViewPager for the Carousel view
     private LinearLayout llPageIndicatorContainer;          // Carousel view item indicator, the little bullets at the bottom of the carousel
     private ArrayList<ImageView> carouselPageIndicators;    // Carousel view item, the little bullet at the bottom of the carousel
-    private int [] imageResourceIds;                        // Carousel view background image
+    private String [] imageResourceIds;                        // Carousel view background image
     private long carouselSlideInterval;                     // Carousel view item sliding interval
     private Handler carouselHandler;                        // Carousel view item sliding interval automation handler
 
@@ -60,12 +60,11 @@ public class ViewPagerCarouselView extends RelativeLayout {
      * Set the data and initialize the carousel view
      * @param fragmentManager
      * @param imageResourceIds
-     * @param carouselSlideInterval
+
      */
-    public void setData(FragmentManager fragmentManager, int [] imageResourceIds, long carouselSlideInterval) {
+    public void setData(FragmentManager fragmentManager, String [] imageResourceIds) {
         this.fragmentManager = fragmentManager;
         this.imageResourceIds = imageResourceIds;
-        this.carouselSlideInterval = carouselSlideInterval;
         initData();
         initCarousel();
        // initCarouselSlide();

@@ -10,9 +10,9 @@ import android.support.v4.app.FragmentStatePagerAdapter;
  */
 
 public class ViewPagerCarouselAdapter extends FragmentStatePagerAdapter {
-    private int[] imageResourceIds;
+    private String[] imageResourceIds;
 
-    public ViewPagerCarouselAdapter(FragmentManager fm, int[] imageResourceIds) {
+    public ViewPagerCarouselAdapter(FragmentManager fm, String[] imageResourceIds) {
         super(fm);
         this.imageResourceIds = imageResourceIds;
     }
@@ -20,7 +20,7 @@ public class ViewPagerCarouselAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         Bundle bundle = new Bundle();
-        bundle.putInt(ViewPagerCarouselFragment.IMAGE_RESOURCE_ID, imageResourceIds[position]);
+        bundle.putString(ViewPagerCarouselFragment.IMAGE_RESOURCE_ID, imageResourceIds[position]);
         ViewPagerCarouselFragment frag = new ViewPagerCarouselFragment();
         frag.setArguments(bundle);
 

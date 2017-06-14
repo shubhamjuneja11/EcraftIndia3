@@ -23,6 +23,7 @@ import com.example.shubham11.ecraftindia.app.AppController;
 import com.example.shubham11.ecraftindia.app.SessionManager;
 import com.example.shubham11.ecraftindia.carousel.ViewPagerCarouselView;
 import com.example.shubham11.ecraftindia.helper.SQLiteHandler;
+import com.example.shubham11.ecraftindia.util.UtilityFile;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,7 +36,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_color,t_size,t_inventory,t_inventorytype,t_name;
     String msku,primarycategory,category,material,color,size,inventory,inventorytype,name;
     int cp,mrp,sp;
-    String sku,username,imei,access;
+    String sku,username,imei,access,images;
     String cpr,mrpr,spr,rupee;
     ViewPagerCarouselView viewPagerCarouselView;
     Intent intent;
@@ -52,10 +53,7 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
         username=SessionManager.username;
         imei=SessionManager.userid;
         long carouselSlideInterval = 3000; // 3 SECONDS
-        int [] imageResourceIds = {R.drawable.tiger,R.drawable.tiger,R.drawable.tiger,R.drawable.tiger,R.drawable.tiger};
 
-        viewPagerCarouselView = (ViewPagerCarouselView) findViewById(R.id.carousel_view);
-        viewPagerCarouselView.setData(getSupportFragmentManager(), imageResourceIds, carouselSlideInterval);
         rupee=getString(R.string.Rs)+" ";
     }
 
@@ -88,6 +86,15 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
                     JSONArray array=object.getJSONArray("detail");
                     access=object.getString("editable_access");
                     msku=array.getString(1);
+                    images=array.getString(2);
+
+                    /**************************************/
+
+                    String [] imageResourceIds = UtilityFile.getallImages(images);
+                    viewPagerCarouselView = (ViewPagerCarouselView) findViewById(R.id.carousel_view);
+                    viewPagerCarouselView.setData(getSupportFragmentManager(), imageResourceIds);
+
+                    /*****************************************/
                     name=array.getString(3);
                     primarycategory=array.getString(4);
                     category=array.getString(5);

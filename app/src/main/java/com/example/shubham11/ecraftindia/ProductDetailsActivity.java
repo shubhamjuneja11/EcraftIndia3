@@ -1,7 +1,6 @@
 package com.example.shubham11.ecraftindia;
 
 import android.content.Intent;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -10,12 +9,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
@@ -23,6 +20,7 @@ import com.example.shubham11.ecraftindia.app.AppConfig;
 import com.example.shubham11.ecraftindia.app.AppController;
 import com.example.shubham11.ecraftindia.app.SessionManager;
 import com.example.shubham11.ecraftindia.carousel.ViewPagerCarouselView;
+import com.example.shubham11.ecraftindia.editdetails.EditDetailsActivity;
 import com.example.shubham11.ecraftindia.helper.SQLiteHandler;
 import com.example.shubham11.ecraftindia.util.UtilityFile;
 

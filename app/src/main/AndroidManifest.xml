@@ -44,10 +44,11 @@
         <activity android:name=".ProductDetailsActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".CartActivity" />
-        <activity android:name=".EditDetailsActivity" />
-        <activity android:name=".ProductDetailsMerchant"></activity>
-        <activity android:name=".SearchListActivityNoCp"></activity>
-
+        <activity android:name=".editdetails.EditDetailsActivity" />
+        <activity android:name=".ProductDetailsMerchant" />
+        <activity android:name=".SearchListActivityNoCp" />
+        <activity android:name=".editdetails.EditDetailsOwner" />
+        <activity android:name=".editdetails.EditDetailsManager"></activity>
     </application>
 
 </manifest>

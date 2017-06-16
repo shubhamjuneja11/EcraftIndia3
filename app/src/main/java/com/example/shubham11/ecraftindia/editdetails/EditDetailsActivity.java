@@ -30,7 +30,6 @@ public class EditDetailsActivity extends AppCompatActivity {
 
     }
     public void initializeTextFields(){
-        editTexts=new EditText[14];
         text=new String[14];
         for(int i=0;i<resourceIds.length;i++)
             editTexts[i]=(EditText)findViewById(resourceIds[i]);

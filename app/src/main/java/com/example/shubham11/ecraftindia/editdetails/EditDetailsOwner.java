@@ -26,7 +26,6 @@ public class EditDetailsOwner extends AppCompatActivity {
         EditUtility.setContext(this);
     }
     public void initializeTextFields(){
-        editTexts=new EditText[12];
         text=new String[12];
         for(int i=0;i<resourceIds.length;i++)
             editTexts[i]=(EditText)findViewById(resourceIds[i]);
@@ -38,7 +37,7 @@ public class EditDetailsOwner extends AppCompatActivity {
         for(int i=0;i<resourceIds.length;i++)
             text[i]=editTexts[i].getText().toString();
         if(EditUtility.validatedata(text))
-            EditUtility.sendadmindata(text);
+            EditUtility.sendownerdata(text);
 
     }
     public void setData(){

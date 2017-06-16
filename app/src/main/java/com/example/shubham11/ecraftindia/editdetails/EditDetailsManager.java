@@ -19,19 +19,19 @@ public class EditDetailsManager extends AppCompatActivity {
             R.id.primarycategory,R.id.category,R.id.cp,R.id.mrp,R.id.sp,R.id.material,
             R.id.color,R.id.commentby};
     ProductDetailsModel model;
-    int resourceIds[]={R.id.size,R.id.inventory,R.id.inventorytype,R.id.comment,R.id.commentby};
+    int resourceIds[]={R.id.size,R.id.inventory,R.id.inventorytype,R.id.comment};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_details_manager);
         initializeTextFields();
         setTextFields();
+        setData();
         EditUtility.setContext(this);
 
     }
     public void initializeTextFields(){
-        text=new String[14];
-        textView=new TextView[2];
+        text=new String[11];
         for(int i=0;i<resourceIds.length;i++)
             editTexts[i]=(EditText)findViewById(resourceIds[i]);
         for(int i=0;i<textresourcid.length;i++)
@@ -66,6 +66,5 @@ public class EditDetailsManager extends AppCompatActivity {
         editTexts[1].setText(model.getInventory());
         editTexts[2].setText(model.getInventory_type());
         editTexts[3].setText(model.getComment());
-        editTexts[4].setText(model.getCommentBy());
     }
 }

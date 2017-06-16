@@ -25,7 +25,7 @@ import java.util.Map;
 
 public class EditUtility {
     static Context context;
-    static Map<String, String> params
+    static Map<String, String> params;
     public static boolean validatedata(String[] data){
         for(int i=0;i<data.length;i++)
         {
@@ -70,6 +70,7 @@ public class EditUtility {
             protected Map<String, String> getParams() {
 
                 // Posting parameters to login url
+                params.put("username",SessionManager.username);
                 return params;
             }
         };
@@ -94,7 +95,6 @@ public class EditUtility {
         params.put("inventory",data[10]);
         params.put("inventory_type",data[11]);
         params.put("comment",data[12]);
-        params.put("")
         sendAlldata();
     }
     public static void sendownerdata(String[] data){
@@ -110,9 +110,6 @@ public class EditUtility {
         params.put("inventory",data[8]);
         params.put("inventory_type",data[9]);
         params.put("comment",data[10]+"\n@"+SessionManager.username);
-        sendAlldata();
-    }
-    public static void sendemployeedata(String[] data){
         sendAlldata();
     }
 

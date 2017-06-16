@@ -360,6 +360,30 @@
                         android:background="@drawable/borderother"
                         />
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_weight="10"
+                    android:layout_marginTop="20dp"
+                    >
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Comment by : "
+                        android:textColor="@color/black"
+                        android:layout_weight="4"
+                        />
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="sku"
+                        android:layout_weight="6"
+                        android:id="@+id/commentby"
+                        android:gravity="center"
+                        android:background="@drawable/borderother"
+                        />
+                </LinearLayout>
             </LinearLayout>
         </ScrollView>
     </android.support.v7.widget.CardView>

@@ -25,6 +25,7 @@ import java.util.Map;
 
 public class EditUtility {
     static Context context;
+    static Map<String, String> params
     public static boolean validatedata(String[] data){
         for(int i=0;i<data.length;i++)
         {
@@ -37,7 +38,7 @@ public class EditUtility {
     public static void setContext(Context context){
         EditUtility.context=context;
     }
-    public static void sendAlldata(final String[] data){
+    public static void sendAlldata(){
         final ProgressDialog dialog=new ProgressDialog(context);
         dialog.show();
         dialog.setMessage("Submitting...");
@@ -69,24 +70,51 @@ public class EditUtility {
             protected Map<String, String> getParams() {
 
                 // Posting parameters to login url
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("sku",data[0]);
-                params.put("msku",data[1]);
-                params.put("name",data[2]);
-                params.put("primary_category",data[3]);
-                params.put("cp",data[4]);
-                params.put("mrp",data[5]);
-                params.put("sp",data[6]);
-                params.put("material",data[7]);
-                params.put("color",data[8]);
-                params.put("size",data[9]);
-                params.put("inventory",data[10]);
-                params.put("inventory_type",data[11]);
-                params.put("comment",data[12]+"\n@"+SessionManager.username);
                 return params;
             }
         };
         AppController.getInstance().addToRequestQueue(request);
     }
+    public static void sendmanagerdata(String [] data){
+
+        sendAlldata();
+    }
+    public static void sendadmindata(String[] data){
+        params = new HashMap<String, String>();
+        params.put("sku",data[0]);
+        params.put("msku",data[1]);
+        params.put("name",data[2]);
+        params.put("primary_category",data[3]);
+        params.put("cp",data[4]);
+        params.put("mrp",data[5]);
+        params.put("sp",data[6]);
+        params.put("material",data[7]);
+        params.put("color",data[8]);
+        params.put("size",data[9]);
+        params.put("inventory",data[10]);
+        params.put("inventory_type",data[11]);
+        params.put("comment",data[12]);
+        params.put("")
+        sendAlldata();
+    }
+    public static void sendownerdata(String[] data){
+        params = new HashMap<String, String>();
+        params.put("name",data[0]);
+        params.put("primary_category",data[1]);
+        params.put("cp",data[2]);
+        params.put("mrp",data[3]);
+        params.put("sp",data[4]);
+        params.put("material",data[5]);
+        params.put("color",data[6]);
+        params.put("size",data[7]);
+        params.put("inventory",data[8]);
+        params.put("inventory_type",data[9]);
+        params.put("comment",data[10]+"\n@"+SessionManager.username);
+        sendAlldata();
+    }
+    public static void sendemployeedata(String[] data){
+        sendAlldata();
+    }
+
 
 }

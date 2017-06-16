@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -84,7 +84,7 @@
                         android:textColor="@color/black"
                         android:layout_weight="4"
                         />
-                    <TextView
+                    <EditText
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="sku"
@@ -108,7 +108,7 @@
                         android:textColor="@color/black"
                         android:layout_weight="4"
                         />
-                    <TextView
+                    <EditText
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="sku"
@@ -132,7 +132,7 @@
                         android:textColor="@color/black"
                         android:layout_weight="4"
                         />
-                    <TextView
+                    <EditText
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="sku"
@@ -152,11 +152,35 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:text="CP : "
+                        android:textColor="@color/black"
+                        android:layout_weight="4"
+                        />
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="sku"
+                        android:layout_weight="6"
+                        android:id="@+id/cp"
+                        android:gravity="center"
+                        android:background="@drawable/borderother"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_weight="10"
+                    android:layout_marginTop="20dp"
+                    >
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:text="MRP : "
                         android:textColor="@color/black"
                         android:layout_weight="4"
                         />
-                    <TextView
+                    <EditText
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="sku"
@@ -180,7 +204,7 @@
                         android:textColor="@color/black"
                         android:layout_weight="4"
                         />
-                    <TextView
+                    <EditText
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="sku"
@@ -204,7 +228,7 @@
                         android:textColor="@color/black"
                         android:layout_weight="4"
                         />
-                    <TextView
+                    <EditText
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="sku"
@@ -229,7 +253,7 @@
                         android:textColor="@color/black"
                         android:layout_weight="4"
                         />
-                    <TextView
+                    <EditText
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="sku"
@@ -293,6 +317,7 @@
                     android:orientation="horizontal"
                     android:layout_weight="10"
                     android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
                     >
                     <TextView
                         android:layout_width="0dp"
@@ -317,7 +342,6 @@
                     android:orientation="horizontal"
                     android:layout_weight="10"
                     android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
                     >
                     <TextView
                         android:layout_width="0dp"
@@ -336,7 +360,41 @@
                         android:background="@drawable/borderother"
                         />
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_weight="10"
+                    android:layout_marginTop="20dp"
+                    >
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Comment by : "
+                        android:textColor="@color/black"
+                        android:layout_weight="4"
+                        />
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="sku"
+                        android:layout_weight="6"
+                        android:id="@+id/commentby"
+                        android:gravity="center"
+                        android:background="@drawable/borderother"
+                        />
+                </LinearLayout>
             </LinearLayout>
         </ScrollView>
     </android.support.v7.widget.CardView>
-</LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/saveicon"
+        android:onClick="senddata"
+        />
+</RelativeLayout>

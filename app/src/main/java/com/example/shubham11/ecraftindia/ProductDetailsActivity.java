@@ -1,5 +1,6 @@
 package com.example.shubham11.ecraftindia;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +24,7 @@ import com.example.shubham11.ecraftindia.app.SessionManager;
 import com.example.shubham11.ecraftindia.carousel.ViewPagerCarouselView;
 import com.example.shubham11.ecraftindia.editdetails.EditDetailsActivity;
 import com.example.shubham11.ecraftindia.helper.SQLiteHandler;
+import com.example.shubham11.ecraftindia.models.ProductDetailsModel;
 import com.example.shubham11.ecraftindia.util.UtilityFile;
 
 import org.json.JSONArray;
@@ -32,8 +35,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ProductDetailsActivity extends AppCompatActivity {
-TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_color,t_size,t_inventory,t_inventorytype,t_name;
-    String msku,primarycategory,category,material,color,size,inventory,inventorytype,name;
+TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_color,t_size,t_inventory,t_inventorytype,t_name,t_comment,t_commentby;
+    String msku,primarycategory,category,material,color,size,inventory,inventorytype,name,comment,commentby;
     int cp,mrp,sp;
     String sku,username,imei,access,images;
     String cpr,mrpr,spr,rupee;
@@ -42,6 +45,14 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
     Intent intent;
     String role;
     boolean decide=true;
+    ProgressDialog bar;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        load_data();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +64,9 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
             setContentView(R.layout.product_details_no_cp);
             decide=false;
         }
+        bar=new ProgressDialog(this);
+        bar.setMessage("Loading...");
+        bar.show();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -61,7 +75,7 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
         username=SessionManager.username;
         imei=SessionManager.userid;
         rupee=getString(R.string.Rs)+" ";
-        load_data();
+
     }
 
 
@@ -83,6 +97,8 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
         t_size=(TextView)findViewById(R.id.size);
         t_inventory=(TextView)findViewById(R.id.inventory);
         t_inventorytype=(TextView)findViewById(R.id.inventorytype);
+        t_comment=(TextView)findViewById(R.id.comment);
+        t_commentby=(TextView)findViewById(R.id.commentby);
     }
 
     public void load_data(){
@@ -117,6 +133,8 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
                     size=array.getString(11);
                     inventory=array.getString(12);
                     inventorytype=array.getString(13);
+                    comment=array.getString(14);
+                    commentby=array.getString(15);
 
                 } catch (JSONException e) {
                     Log.e("ab","duetome");
@@ -159,6 +177,7 @@ if(decide)
         t_inventorytype.setText(inventorytype);
         t_inventory.setText(inventory);
         t_name.setText(name);
+        bar.dismiss();
     }
 
 
@@ -218,7 +237,8 @@ if(decide)
     }
     public void editProduct(View view){
         Intent intent=new Intent(this,EditDetailsActivity.class);
-        intent.putExtra("access",access);
+        ProductDetailsModel model=new ProductDetailsModel(sku,msku,name,primarycategory,category,String.valueOf(cp),String.valueOf(mrp),String.valueOf(sp),material,color,size,inventory,inventorytype,comment,commentby);
+        intent.putExtra("model",model);
         startActivity(intent);
 
     }

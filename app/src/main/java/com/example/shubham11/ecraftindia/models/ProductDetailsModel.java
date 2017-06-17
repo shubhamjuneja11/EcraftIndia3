@@ -1,10 +1,12 @@
 package com.example.shubham11.ecraftindia.models;
 
+import java.io.Serializable;
+
 /**
  * Created by shubhamjuneja11 on 17/6/17.
  */
 
-public class ProductDetailsModel {
+public class ProductDetailsModel implements Serializable {
     String sku;
     String msku;
     String name;
@@ -17,6 +19,25 @@ public class ProductDetailsModel {
     String color;
     String size;
     String inventory;
+
+    public ProductDetailsModel(String sku, String msku, String name, String primary_category, String category, String cp, String mrp, String sp, String material, String color, String size, String inventory, String inventory_type, String comment, String commentBy) {
+        this.sku = sku;
+        this.msku = msku;
+        this.name = name;
+        this.primary_category = primary_category;
+        this.category = category;
+        this.cp = cp;
+        this.mrp = mrp;
+        this.sp = sp;
+        this.material = material;
+        this.color = color;
+        this.size = size;
+        this.inventory = inventory;
+        this.inventory_type = inventory_type;
+        this.comment = comment;
+        this.commentBy = commentBy;
+    }
+
     String inventory_type;
     String comment;
 

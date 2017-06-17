@@ -2,6 +2,7 @@ package com.example.shubham11.ecraftindia.editdetails;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,34 +18,49 @@ public class EditDetailsActivity extends AppCompatActivity {
     TextView textView[];
     int textresourcid[]={R.id.commentby};
     ProductDetailsModel model;
+    String originalsku,originalcomment;
     int resourceIds[]={R.id.sku,R.id.msku,R.id.name,R.id.primarycategory,R.id.category,R.id.cp,R.id.mrp,R.id.sp,R.id.material,
             R.id.color,R.id.size,R.id.inventory,R.id.inventorytype,R.id.comment};
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setData();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_details);
-
+        model=(ProductDetailsModel) getIntent().getSerializableExtra("model");
         initializeTextFields();
-        setData();
+
         EditUtility.setContext(this);
 
     }
     public void initializeTextFields(){
         text=new String[14];
-        for(int i=0;i<resourceIds.length;i++)
-            editTexts[i]=(EditText)findViewById(resourceIds[i]);
+        editTexts=new EditText[resourceIds.length];
+        textView=new TextView[textresourcid.length];
+        for(int i=0;i<resourceIds.length;i++) {
+            editTexts[i] = (EditText) findViewById(resourceIds[i]);
+
+        }
         for(int i=0;i<textView.length;i++)
         textView[i]=(TextView)findViewById(textresourcid[i]);
 
     }
     public void senddata(View view){
+        Log.e("hello","a");
        for(int i=0;i<resourceIds.length;i++)
            text[i]=editTexts[i].getText().toString();
-        if(EditUtility.validatedata(text))
-            EditUtility.sendadmindata(text);
+       // if(EditUtility.validatedata(text))
+            EditUtility.sendadmindata(text,originalsku,originalcomment,editTexts[13].getText().toString());
 
     }
     public void setData(){
+        originalsku=model.getSku();
+        originalcomment=model.getComment();
         editTexts[0].setText(model.getSku());
         editTexts[1].setText(model.getMsku());
         editTexts[2].setText(model.getName());

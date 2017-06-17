@@ -45,18 +45,19 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
     Intent intent;
     String role;
     boolean decide=true;
+    String [] imageResourceIds;
     ProgressDialog bar;
 
     @Override
     protected void onResume() {
         super.onResume();
-        load_data();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         handler=new SQLiteHandler(this);
+
         role=handler.getUserDetails().get("access_role");
         if(!role.equals("employee"))
         setContentView(R.layout.activity_product_details);
@@ -64,6 +65,7 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
             setContentView(R.layout.product_details_no_cp);
             decide=false;
         }
+        viewPagerCarouselView = (ViewPagerCarouselView) findViewById(R.id.carousel_view);
         bar=new ProgressDialog(this);
         bar.setMessage("Loading...");
         bar.show();
@@ -75,6 +77,7 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
         username=SessionManager.username;
         imei=SessionManager.userid;
         rupee=getString(R.string.Rs)+" ";
+        load_data();
 
     }
 
@@ -114,8 +117,8 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
 
                     /**************************************/
 
-                    String [] imageResourceIds = UtilityFile.getallImages(images);
-                    viewPagerCarouselView = (ViewPagerCarouselView) findViewById(R.id.carousel_view);
+                     imageResourceIds = UtilityFile.getallImages(images);
+
                     viewPagerCarouselView.setData(getSupportFragmentManager(), imageResourceIds);
 
                     /*****************************************/
@@ -240,6 +243,6 @@ if(decide)
         ProductDetailsModel model=new ProductDetailsModel(sku,msku,name,primarycategory,category,String.valueOf(cp),String.valueOf(mrp),String.valueOf(sp),material,color,size,inventory,inventorytype,comment,commentby);
         intent.putExtra("model",model);
         startActivity(intent);
-
+        finish();
     }
 }

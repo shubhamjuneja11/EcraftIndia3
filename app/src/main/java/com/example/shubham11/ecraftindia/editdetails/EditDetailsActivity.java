@@ -1,5 +1,6 @@
 package com.example.shubham11.ecraftindia.editdetails;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
+import com.example.shubham11.ecraftindia.ProductDetailsActivity;
 import com.example.shubham11.ecraftindia.R;
 import com.example.shubham11.ecraftindia.models.ProductDetailsModel;
 
@@ -76,5 +78,13 @@ public class EditDetailsActivity extends AppCompatActivity {
         editTexts[12].setText(model.getInventory_type());
         editTexts[13].setText(model.getComment());
         textView[0].setText(model.getCommentBy());
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent=new Intent(this, ProductDetailsActivity.class);
+        intent.putExtra("sku",editTexts[0].getText().toString());
+        startActivity(intent);
+        finish();
     }
 }

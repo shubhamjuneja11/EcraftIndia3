@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
     ProgressBar dialog;
     String values[],searchalpha,role;
     boolean fromalpha=false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

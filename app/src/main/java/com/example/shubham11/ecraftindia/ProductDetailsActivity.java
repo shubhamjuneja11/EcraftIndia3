@@ -2,6 +2,7 @@ package com.example.shubham11.ecraftindia;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,7 +49,7 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
     boolean decide=true;
     String [] imageResourceIds;
     ProgressDialog bar;
-
+    FloatingActionButton fb;
     @Override
     protected void onResume() {
         super.onResume();
@@ -63,6 +65,11 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
         setContentView(R.layout.activity_product_details);
         else {
             setContentView(R.layout.product_details_no_cp);
+           // fb=(FloatingActionButton)findViewById(R.id.editdetails);
+            View namebar = findViewById(R.id.editdetails);
+            if(namebar!=null)
+            ((ViewGroup) namebar.getParent()).removeView(namebar);
+            else Log.e("abcde","nullz");
             decide=false;
         }
         viewPagerCarouselView = (ViewPagerCarouselView) findViewById(R.id.carousel_view);
@@ -109,6 +116,7 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
             @Override
             public void onResponse(String response) {
                 try {
+                    Log.e("lopa",response);
                     JSONObject object=new JSONObject(response);
                     JSONArray array=object.getJSONArray("detail");
                     access=object.getString("editable_access");
@@ -180,11 +188,20 @@ if(decide)
         t_inventorytype.setText(inventorytype);
         t_inventory.setText(inventory);
         t_name.setText(name);
+        if(t_comment==null)
+            Log.e("abcde","null");
+        t_comment.setText(comment);
+
+        t_commentby.setText(commentby);
+
         bar.dismiss();
     }
 
 
     public void addToCart(View view){
+        final ProgressDialog dialog=new ProgressDialog(this);
+        dialog.setMessage("Adding to cart");
+        dialog.show();
         StringRequest request=new StringRequest(StringRequest.Method.POST, AppConfig.URL_ADD_TO_CART, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -202,12 +219,15 @@ if(decide)
                     startActivity(intent);
                     e.printStackTrace();
                 }
+                finally {
+                    dialog.dismiss();
+                }
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                dialog.dismiss();
             }
         }){
             @Override

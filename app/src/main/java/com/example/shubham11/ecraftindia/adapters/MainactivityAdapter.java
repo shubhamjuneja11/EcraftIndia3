@@ -27,6 +27,7 @@ public class MainactivityAdapter extends RecyclerView.Adapter<MainactivityAdapte
     Context context;
     RecyclerViewClickListener itemlistener;
     RequestOptions options;
+    String  rupee="\u20B9";
     public MainactivityAdapter(Context context, ArrayList<SearchListModel> al, RecyclerViewClickListener itemlistener){
         this.context=context;
         this.al=al;
@@ -53,7 +54,7 @@ public class MainactivityAdapter extends RecyclerView.Adapter<MainactivityAdapte
                 .thumbnail(0.5f).apply(options)
                 .into(holder.image);
        try {
-           holder.price.setText(String.valueOf(model.getCp()));
+           holder.price.setText(rupee+String.valueOf(model.getCp()));
        }
        catch (Exception e){
            if(holder.price==null)

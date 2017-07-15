@@ -74,6 +74,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         String imei= Settings.Secure.getString(context.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
         values.put(KEY_USERNAME, username); // Email
+        Log.e("tablead",username);
         values.put(KEY_ID,imei);
         values.put(ACCESS_ROLE,access_role);
 

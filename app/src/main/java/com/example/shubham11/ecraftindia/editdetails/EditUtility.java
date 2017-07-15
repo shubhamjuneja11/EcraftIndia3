@@ -43,8 +43,9 @@ public class EditUtility {
     public static void sendAlldata(){
         Log.e("hello","b");
         final ProgressDialog dialog=new ProgressDialog(context);
-        dialog.show();
         dialog.setMessage("Submitting...");
+        dialog.show();
+
         StringRequest request=new StringRequest(StringRequest.Method.POST, AppConfig.URL_EDIT_DATA, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -77,6 +78,7 @@ public class EditUtility {
 
                 // Posting parameters to login url
                 params.put("username",SessionManager.username);
+                Log.e("myuser",SessionManager.username);
                 params.put("commentstatus",commentstatus);
                 return params;
             }

@@ -52,7 +52,7 @@ RecyclerView recyclerView;
     StringRequest request;
     String changedquantity,URL,quantity;
     int selected_item;
-    String operation;
+    String operation,images;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -220,7 +220,8 @@ RecyclerView recyclerView;
                         JSONObject ob=array.getJSONObject(i);
                         sku=ob.getString("sku");
                         quantity=ob.getString("quantity");
-                        al.add(new CartModel("abc",sku,quantity));
+                        images=ob.getString("images");
+                        al.add(new CartModel("abc",sku,quantity,images));
                     }
                     adapter.notifyDataSetChanged();
                 }

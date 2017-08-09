@@ -24,6 +24,9 @@ public class CartModel {
         this.sku = sku;
     }
 
+    public String getImage() {
+        return image;
+    }
 
     public String getQuantity() {
         return quantity;
@@ -33,10 +36,11 @@ public class CartModel {
         this.quantity = quantity;
     }
 
-    public CartModel(String name, String sku,String  quantity) {
+    public CartModel(String name, String sku,String  quantity,String image) {
 
         this.name = name;
         this.sku = sku;
         this.quantity = quantity;
+        this.image=image;
     }
 }

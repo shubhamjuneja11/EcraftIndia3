@@ -12,9 +12,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 import com.example.shubham11.ecraftindia.R;
 import com.example.shubham11.ecraftindia.interfaces.CartEventListener;
 import com.example.shubham11.ecraftindia.models.CartModel;
+import com.example.shubham11.ecraftindia.util.UtilityFile;
 
 import java.util.ArrayList;
 
@@ -45,7 +48,9 @@ ArrayList<CartModel> al;
         CartModel model=al.get(position);
         holder.sku.setText(model.getSku());
         holder.comment.setText(model.getQuantity());
-
+        Glide.with(context).load(UtilityFile.getSingleImage(model.getImage()))
+                .thumbnail(0.5f)
+                .into(holder.image);
 
     }
 

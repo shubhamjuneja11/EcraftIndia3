@@ -1,7 +1,9 @@
 package com.example.shubham11.ecraftindia;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -225,11 +227,20 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
     }
 
     public void openProfile(View view){
-        SessionManager sessionManager=new SessionManager(this);
-        sessionManager.setLogin(false);
-        handler.deleteUsers();
-        Intent intent=new Intent(this,LoginActivity.class);
-        startActivity(intent);
+
+        AlertDialog.Builder dialog=new AlertDialog.Builder(this).setTitle("Do you want to log out?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                SessionManager sessionManager=new SessionManager(MainActivity.this);
+                sessionManager.setLogin(false);
+                handler.deleteUsers();
+                Intent intent=new Intent(MainActivity.this,LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }).setNegativeButton("No",null);
+        dialog.show();
+
     }
     public void openCart(View view){
         Intent intent=new Intent(this,CartActivity.class);

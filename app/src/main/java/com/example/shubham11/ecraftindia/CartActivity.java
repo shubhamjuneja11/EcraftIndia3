@@ -136,7 +136,6 @@ RecyclerView recyclerView;
         dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 changedquantity=edt.getText().toString().trim();
-                Toast.makeText(CartActivity.this,changedquantity, Toast.LENGTH_SHORT).show();
                 getStringRequest(3);
             }
         });

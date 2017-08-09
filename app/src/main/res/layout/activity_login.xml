@@ -29,6 +29,13 @@
             android:textColor="@color/input_login"
             android:textColorHint="@color/input_login_hint" />
 
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:id="@+id/progressbar"
+                android:visibility="invisible"
+                android:layout_height="wrap_content" />
+
         <EditText
             android:id="@+id/password"
             android:layout_width="fill_parent"
@@ -48,7 +55,7 @@
             android:id="@+id/btnLogin"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
+            android:layout_marginTop="40dp"
             android:background="@color/colorPrimary"
             android:text="@string/btn_login"
             android:textColor="@color/white" />

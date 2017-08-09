@@ -35,15 +35,15 @@ EditText emailtext,passwordtext;
     String email,password;
     Button signin;
     SessionManager sessionManager;
-    ProgressDialog progressDialog;
+
     SQLiteHandler db;
     String imei;
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        progressDialog=new ProgressDialog(this);
-        progressDialog.setCancelable(false);
+        progressBar=(ProgressBar)findViewById(R.id.progressbar);
 
 
         emailtext=(EditText) findViewById(R.id.email);
@@ -76,7 +76,7 @@ EditText emailtext,passwordtext;
 
     }
     public void checkcredentials(final String email, final String password){
-        //showDialog();
+        showDialog();
         String my_req="login_req";
         Log.e("myh","a");
                 StringRequest request=new StringRequest(Request.Method.POST, AppConfig.URL_LOGIN, new Response.Listener<String>() {
@@ -102,13 +102,16 @@ EditText emailtext,passwordtext;
                             Log.e("myh","c");
                             e.printStackTrace();
                         }
+                        finally {
+                            hideDialog();
+                        }
 
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("myh", error.getMessage());
-                      //  hideDialog();
+                       hideDialog();
 
                     }
                 }){
@@ -131,13 +134,11 @@ EditText emailtext,passwordtext;
 
     }
     public void showDialog(){
-        if(!progressDialog.isShowing())
-                progressDialog.show();
+        progressBar.setVisibility(View.VISIBLE);
 
     }
     public void hideDialog(){
-        if(progressDialog.isShowing())
-                progressDialog.hide();
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
 }

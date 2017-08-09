@@ -13,6 +13,7 @@
     android:id="@+id/toolbar"
     android:layout_height="wrap_content"
     android:background="?attr/colorPrimary"
+
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 </android.support.v7.widget.Toolbar>
     <com.example.shubham11.ecraftindia.carousel.ViewPagerCarouselView

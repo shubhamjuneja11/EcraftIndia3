@@ -61,10 +61,13 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
         handler=new SQLiteHandler(this);
 
         role=handler.getUserDetails().get("access_role");
-        if(!role.equals("employee"))
-        setContentView(R.layout.activity_product_details);
+        if(!role.equals("employee")) {
+            setContentView(R.layout.activity_product_details);
+
+        }
         else {
             setContentView(R.layout.product_details_no_cp);
+
            // fb=(FloatingActionButton)findViewById(R.id.editdetails);
             View namebar = findViewById(R.id.editdetails);
             if(namebar!=null)

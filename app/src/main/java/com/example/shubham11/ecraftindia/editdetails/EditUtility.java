@@ -2,11 +2,8 @@ package com.example.shubham11.ecraftindia.editdetails;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.util.Log;
-import android.widget.EditText;
-import android.widget.Toast;
 
-import com.android.volley.Request;
+import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
@@ -41,7 +38,6 @@ public class EditUtility {
         EditUtility.context=context;
     }
     public static void sendAlldata(){
-        Log.e("hello","b");
         final ProgressDialog dialog=new ProgressDialog(context);
         dialog.setMessage("Submitting...");
         dialog.show();
@@ -50,14 +46,14 @@ public class EditUtility {
             @Override
             public void onResponse(String response) {
                 try {
-                    Log.e("hello",response);
+
                     JSONObject object=new JSONObject(response);
                     if(object.getInt("result")==1)
                         Toast.makeText(context, "Successfully submitted", Toast.LENGTH_SHORT).show();
                     else
                         Toast.makeText(context, "Error occured", Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
-                    Log.e("hello",e.getMessage());
+
                     e.printStackTrace();
                     Toast.makeText(context, "Error occured.", Toast.LENGTH_SHORT).show();
                 }
@@ -70,7 +66,6 @@ public class EditUtility {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("hello","ggg");
             }
         }){
             @Override
@@ -78,7 +73,6 @@ public class EditUtility {
 
                 // Posting parameters to login url
                 params.put("username",SessionManager.username);
-                Log.e("myuser",SessionManager.username);
                 params.put("commentstatus",commentstatus);
                 return params;
             }
@@ -94,8 +88,6 @@ public class EditUtility {
         sendAlldata();
     }
     public static void sendadmindata(String[] data,String originalsku,String originalcomment,String mycomment){
-        Log.e("hello","c");
-
         params = new HashMap<String, String>();
         params.put("sku",data[0]);
         params.put("msku",data[1]);
@@ -113,9 +105,7 @@ public class EditUtility {
         params.put("comment",data[13]);
         params.put("originalsku",originalsku);
         getCommentStatus(originalcomment,mycomment);
-        Log.e("hello","d");
         sendAlldata();
-        Log.e("hello","e");
 
     }
     public static void sendownerdata(String[] data){

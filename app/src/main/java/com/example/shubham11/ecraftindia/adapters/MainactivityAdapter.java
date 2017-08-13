@@ -2,7 +2,6 @@ package com.example.shubham11.ecraftindia.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,9 +56,7 @@ public class MainactivityAdapter extends RecyclerView.Adapter<MainactivityAdapte
            holder.price.setText(rupee+String.valueOf(model.getCp()));
        }
        catch (Exception e){
-           if(holder.price==null)
-               Log.e("popa","2");
-           e.printStackTrace();
+
        }
     }
 
@@ -78,7 +75,7 @@ public class MainactivityAdapter extends RecyclerView.Adapter<MainactivityAdapte
             price=(TextView)itemView.findViewById(R.id.myprice);
             sku=(TextView)itemView.findViewById(R.id.sku);
             itemView.setOnClickListener(this);
-            if(price==null) Log.e("popa","1");
+
         }
 
         @Override

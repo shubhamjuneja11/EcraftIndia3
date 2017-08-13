@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.Settings;
-import android.util.Log;
 
 import java.util.HashMap;
 
@@ -74,7 +73,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         String imei= Settings.Secure.getString(context.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
         values.put(KEY_USERNAME, username); // Email
-        Log.e("tablead",username);
         values.put(KEY_ID,imei);
         values.put(ACCESS_ROLE,access_role);
 
@@ -105,7 +103,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         // return user
-        Log.d(TAG, "Fetching user from Sqlite: " + user.toString());
 
         return user;
     }
@@ -119,7 +116,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.delete(TABLE_USER, null, null);
         db.close();
 
-        Log.d(TAG, "Deleted all user info from sqlite");
     }
 
 }

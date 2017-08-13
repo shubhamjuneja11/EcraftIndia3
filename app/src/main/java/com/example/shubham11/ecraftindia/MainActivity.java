@@ -11,7 +11,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,7 +22,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.shubham11.ecraftindia.adapters.MainactivityAdapter;
-import com.example.shubham11.ecraftindia.adapters.SearchAdapterNoCp;
 import com.example.shubham11.ecraftindia.app.AppConfig;
 import com.example.shubham11.ecraftindia.app.AppController;
 import com.example.shubham11.ecraftindia.app.SessionManager;
@@ -161,12 +159,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
 
     /*********************************Function to get data from server************************************/
     public void loaddata(){
-        Log.e("hello",AppConfig.URL_GET_ALL_DATA);
         dialog.setVisibility(View.VISIBLE);
         StringRequest request=new StringRequest(StringRequest.Method.POST,AppConfig.URL_GET_ALL_DATA, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                try {Log.e("abcd",response);
+                try {
                     JSONObject object=new JSONObject(response);
                     JSONArray array=object.getJSONArray("products");
                     for(int i=0;i<array.length();i++){
@@ -197,7 +194,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
         }){
             @Override
             protected Map<String, String> getParams() {
-                Log.e("myh","t");
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("username",username);

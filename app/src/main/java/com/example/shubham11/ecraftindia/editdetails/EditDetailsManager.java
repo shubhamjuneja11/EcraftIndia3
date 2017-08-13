@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.example.shubham11.ecraftindia.R;
 import com.example.shubham11.ecraftindia.models.ProductDetailsModel;
-import com.example.shubham11.ecraftindia.models.ProductModel;
 
 public class EditDetailsManager extends AppCompatActivity {
 

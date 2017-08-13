@@ -3,7 +3,6 @@ package com.example.shubham11.ecraftindia;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.AnyRes;
 import android.support.annotation.NonNull;
@@ -12,13 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -176,7 +173,6 @@ RecyclerView recyclerView;
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("zomie",error.getMessage());
                 progress.setVisibility(View.INVISIBLE);
             }
         }){
@@ -204,14 +200,11 @@ RecyclerView recyclerView;
 
             }
         };
-            Log.e("zomie","d");
            AppController.getInstance().addToRequestQueue(request);
-            Log.e("zomie","e");
         }
 
         public void getCartResponse(String response){
-            try { Log.e("zomie","b");
-                Log.e("respo",response);
+            try {
                 JSONObject jsonObject=new JSONObject(response);
                 int success=jsonObject.getInt("success");
                 if(success==1){
@@ -239,7 +232,7 @@ RecyclerView recyclerView;
 
         public void  getRemoveProductResponse(String response){
             try {
-                Log.e("repos",response);
+
                 JSONObject object=new JSONObject(response);
                 int res=object.getInt("success");
                 if(res==1)
@@ -255,13 +248,12 @@ RecyclerView recyclerView;
         }
         public void getChangeQuantityResponse(String response){
             try {
-                Log.e("repo",response);
+
                 JSONObject object=new JSONObject(response);
                 int res=object.getInt("success");
                 if(res==1)
                 {
                     al.get(selected_item).setQuantity(changedquantity);
-                    Log.e("selected",selected_item+"");
                     adapter.notifyDataSetChanged();
                     Toast.makeText(this, "success", Toast.LENGTH_SHORT).show();
                 }

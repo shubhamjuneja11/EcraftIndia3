@@ -2,7 +2,6 @@ package com.example.shubham11.ecraftindia.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,7 +86,7 @@ ArrayList<CartModel> al;
 
             listener.getSelecteditem(getAdapterPosition());
             if(v.getId()==R.id.share)
-            {Log.e("yup","yup");
+            {
                 View view = v.getRootView();
                 String sku=((TextView)view.findViewById(R.id.sku)).getText().toString();
                 String comment=((TextView)view.findViewById(R.id.comment)).getText().toString();

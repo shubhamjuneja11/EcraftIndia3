@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -99,15 +98,14 @@ public class ProductDetailsMerchant extends AppCompatActivity {
                     name=array.getString(3);
 
                 } catch (JSONException e) {
-                    Log.e("ab","duetome");
-                    e.printStackTrace();
+
                 }
                 loadViews();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("helloz",error.toString());
+
             }
         }
 
@@ -118,10 +116,7 @@ public class ProductDetailsMerchant extends AppCompatActivity {
                 params.put("username",username);
                 params.put("uniqueid",imei);
                 params.put("sku",sku);
-                Log.e("abcde",username);
-                Log.e("abcde",username);
-                Log.e("abcde",imei);
-                Log.e("abcde",sku);
+
 
                 return params;
             }
@@ -140,7 +135,6 @@ public class ProductDetailsMerchant extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 try {
-                    Log.e("myrespo",response);
                     JSONObject object=new JSONObject(response);
                     int success=object.getInt("success");
                     if(success==1){

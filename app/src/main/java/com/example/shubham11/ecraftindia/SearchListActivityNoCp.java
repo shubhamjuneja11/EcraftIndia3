@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -21,7 +20,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.shubham11.ecraftindia.adapters.SearchAdapterNoCp;
-import com.example.shubham11.ecraftindia.adapters.SearchListAdapter;
 import com.example.shubham11.ecraftindia.app.AppConfig;
 import com.example.shubham11.ecraftindia.app.AppController;
 import com.example.shubham11.ecraftindia.helper.SQLiteHandler;
@@ -156,7 +154,6 @@ public class SearchListActivityNoCp extends AppCompatActivity implements Recycle
             @Override
             public void onResponse(String response) {
                 try {
-                    Log.e("response",response);
                     JSONObject object=new JSONObject(response);
                     JSONArray array1=object.getJSONArray("products");
                     int role=object.getInt("access_role");
@@ -174,7 +171,6 @@ public class SearchListActivityNoCp extends AppCompatActivity implements Recycle
                     loading=true;
 
                 } catch (JSONException e) {
-                    Log.e("response",e.getMessage());
                     e.printStackTrace();
                 }
                 finally {

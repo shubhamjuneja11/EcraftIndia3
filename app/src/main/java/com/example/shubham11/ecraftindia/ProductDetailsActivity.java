@@ -6,13 +6,11 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,7 +70,7 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
             View namebar = findViewById(R.id.editdetails);
             if(namebar!=null)
             ((ViewGroup) namebar.getParent()).removeView(namebar);
-            else Log.e("abcde","nullz");
+
             decide=false;
         }
         viewPagerCarouselView = (ViewPagerCarouselView) findViewById(R.id.carousel_view);
@@ -119,7 +117,7 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
             @Override
             public void onResponse(String response) {
                 try {
-                    Log.e("lopa",response);
+
                     JSONObject object=new JSONObject(response);
                     JSONArray array=object.getJSONArray("detail");
                     access=object.getString("editable_access");
@@ -151,8 +149,6 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
                     commentby=array.getString(15);
 
                 } catch (JSONException e) {
-                    Log.e("ab","duetome");
-                    e.printStackTrace();
                 }
                 loadViews();
             }
@@ -170,7 +166,6 @@ TextView t_sku,t_msku,t_primarycategory,t_category,t_cp,t_mrp,t_sp,t_material,t_
                 params.put("username",username);
                 params.put("uniqueid",imei);
                 params.put("sku",sku);
-                Log.e("abcde",username); Log.e("abcde",imei); Log.e("abcde",sku);
                 return params;
             }
         };
@@ -191,8 +186,7 @@ if(decide)
         t_inventorytype.setText(inventorytype);
         t_inventory.setText(inventory);
         t_name.setText(name);
-        if(t_comment==null)
-            Log.e("abcde","null");
+
         t_comment.setText(comment);
 
         t_commentby.setText(commentby);

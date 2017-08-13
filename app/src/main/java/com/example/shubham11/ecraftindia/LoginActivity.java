@@ -1,9 +1,7 @@
 package com.example.shubham11.ecraftindia;
 
-import android.app.ProgressDialog;
-import android.content.Context;
+
 import android.content.Intent;
-import android.net.wifi.WifiManager;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -59,7 +56,6 @@ EditText emailtext,passwordtext;
         }
         imei = Settings.Secure.getString(this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-        Log.e("myhhhhhhhhhh",imei);
 
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,12 +74,10 @@ EditText emailtext,passwordtext;
     public void checkcredentials(final String email, final String password){
         showDialog();
         String my_req="login_req";
-        Log.e("myh","a");
                 StringRequest request=new StringRequest(Request.Method.POST, AppConfig.URL_LOGIN, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            Log.e("myhr",response);
                             JSONObject res=new JSONObject(response);
 
                            int success=res.getInt("success");
@@ -99,7 +93,6 @@ EditText emailtext,passwordtext;
                             else if(success==-1)Toast.makeText(LoginActivity.this, "Your device is not registered.", Toast.LENGTH_LONG).show();
                             else Toast.makeText(LoginActivity.this, "Username/Password is not correct", Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {
-                            Log.e("myh","c");
                             e.printStackTrace();
                         }
                         finally {
@@ -110,14 +103,12 @@ EditText emailtext,passwordtext;
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e("myh", error.getMessage());
                        hideDialog();
 
                     }
                 }){
                     @Override
                     protected Map<String, String> getParams() {
-                        Log.e("myh","t");
                         // Posting parameters to login url
                         Map<String, String> params = new HashMap<String, String>();
                         params.put("username", email);

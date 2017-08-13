@@ -31,7 +31,7 @@ EditText emailtext,passwordtext;
     String email,password;
     Button signin;
     SessionManager sessionManager;
-
+    boolean need=true;
     SQLiteHandler db;
     String imei;
     ProgressBar progressBar;
@@ -49,6 +49,7 @@ EditText emailtext,passwordtext;
         sessionManager=new SessionManager(this);
         db=new SQLiteHandler(this);
         if(sessionManager.isLoggedin()){
+            need=false;
             checkcredentials(db.getUserDetails().get("username"),db.getUserDetails().get("password"));
         }
         imei = Settings.Secure.getString(this.getContentResolver(),
@@ -63,7 +64,7 @@ EditText emailtext,passwordtext;
                 if(!email.isEmpty()&&!password.isEmpty()){
                     checkcredentials(email,password);
                 }
-                else Toast.makeText(LoginActivity.this, "Please entername username and password.", Toast.LENGTH_SHORT).show();
+                else Toast.makeText(LoginActivity.this, "Please enter username and password.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -80,6 +81,7 @@ EditText emailtext,passwordtext;
                            int success=res.getInt("success");
                             if(success==1){
                                 String accesS_role=res.getString("access_role");
+                                if(need)
                                 db.addUser(email,accesS_role,password);
                                 sessionManager=new SessionManager(LoginActivity.this);
                                 sessionManager.setLogin(true);
@@ -88,6 +90,7 @@ EditText emailtext,passwordtext;
                                 finish();
                             }
                             else if(success==-1)Toast.makeText(LoginActivity.this, "Your device is not registered.", Toast.LENGTH_LONG).show();
+                            else if(success==4){Toast.makeText(LoginActivity.this, "Device Logged out.Please login again", Toast.LENGTH_LONG).show();}
                             else Toast.makeText(LoginActivity.this, "Username/Password is not correct", Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {
                             e.printStackTrace();

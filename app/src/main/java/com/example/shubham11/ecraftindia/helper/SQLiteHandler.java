@@ -20,7 +20,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     // All Static variables
     // Database Version
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 7;
 
     // Database Name
     private static final String DATABASE_NAME = "android_api";
@@ -69,7 +69,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
      * */
     public void addUser(String username,String access_role,String pass) {
         SQLiteDatabase db = this.getWritableDatabase();
-
+        //db.execSQL("delete * from "+ TABLE_USER);
         ContentValues values = new ContentValues();
        // values.put(KEY_NAME, name); // Name
         String imei= Settings.Secure.getString(context.getContentResolver(),
